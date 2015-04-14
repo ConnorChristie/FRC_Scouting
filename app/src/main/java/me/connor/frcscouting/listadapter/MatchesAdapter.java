@@ -1,6 +1,7 @@
 package me.connor.frcscouting.listadapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,11 +51,11 @@ public class MatchesAdapter extends ArrayAdapter<MItem>
 			}
 
 			holderSection.section = (TextView) convertView.findViewById(R.id.list_header_title);
-			holderSection.section.setText(si.toString());
+			holderSection.section.setText(si.getMatchTimeString());
 
 		} else
 		{
-			MatchesItem ei = (MatchesItem) objItem;
+			MatchesItem matchItem = (MatchesItem) objItem;
 
 			if (convertView == null || !convertView.getTag().equals(holderName))
 			{
@@ -68,10 +69,24 @@ public class MatchesAdapter extends ArrayAdapter<MItem>
 			}
 
 			holderName.name = (TextView) convertView.findViewById(R.id.list_item_title);
+			holderName.subtitle = (TextView) convertView.findViewById(R.id.list_item_subtitle);
+			holderName.status = (TextView) convertView.findViewById(R.id.list_item_status);
 
 			if (holderName.name != null)
 			{
-				holderName.name.setText(ei.toString());
+				holderName.name.setText(matchItem.getTeamNickname());
+				holderName.subtitle.setText(matchItem.getTeamId() + "");
+
+				holderName.status.setText(matchItem.getStatus().getTitle());
+				holderName.status.setTextColor(matchItem.getStatus().getColor());
+
+				if (matchItem.isAlliance())
+				{
+					convertView.setBackgroundColor(Color.parseColor("#0a048b03"));
+				} else
+				{
+					convertView.setBackgroundColor(Color.parseColor("#0a8b0002"));
+				}
 			}
 		}
 		return convertView;
@@ -80,6 +95,8 @@ public class MatchesAdapter extends ArrayAdapter<MItem>
 	public static class ViewHolderName
 	{
 		public TextView name;
+		public TextView subtitle;
+		public TextView status;
 	}
 
 	public static class ViewHolderSectionName

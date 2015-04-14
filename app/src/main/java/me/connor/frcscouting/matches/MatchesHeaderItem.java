@@ -18,16 +18,16 @@ public class MatchesHeaderItem implements MItem
 		return matchTime;
 	}
 
-	@Override
-	public boolean isHeader()
-	{
-		return true;
-	}
-
-	public String toString()
+	public String getMatchTimeString()
 	{
 		DateFormat df = new SimpleDateFormat("MMM dd 'at' h:mm a");
 
 		return df.format(getMatchTime());
+	}
+
+	@Override
+	public boolean isHeader()
+	{
+		return true;
 	}
 }
