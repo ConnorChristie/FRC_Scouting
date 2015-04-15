@@ -9,36 +9,30 @@ import me.connor.frcscouting.fragments.TeamsFragment;
 
 public class TabsPagerAdapter extends FragmentPagerAdapter
 {
-	public static String[] titles = new String[] { "Matches", "Teams" };
+	public Fragment[] tabs;
 
-	public TabsPagerAdapter(FragmentManager fm)
+	public TabsPagerAdapter(FragmentManager fm, Fragment[] tabs)
 	{
 		super(fm);
+
+		this.tabs = tabs;
 	}
 
 	@Override
 	public Fragment getItem(int i)
 	{
-		switch (i)
-		{
-			case 0:
-				return new MatchesFragment();
-			case 1:
-				return new TeamsFragment();
-		}
-
-		return null;
+		return tabs[i];
 	}
 
 	@Override
 	public int getCount()
 	{
-		return 2;
+		return tabs.length;
 	}
 
 	@Override
 	public CharSequence getPageTitle(int position)
 	{
-		return titles[position];
+		return tabs[position].toString();
 	}
 }

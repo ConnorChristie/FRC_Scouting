@@ -3,59 +3,90 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    >
+    android:focusable="false"
+    android:focusableInTouchMode="false">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:focusableInTouchMode="false">
 
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:layout_gravity="right">
+            android:focusable="false"
+            android:focusableInTouchMode="false">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:focusable="false"
+                android:focusableInTouchMode="false">
+
+                <TextView
+                    android:id="@+id/list_item_title"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="15dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Title"
+                    android:textSize="18sp"
+                    android:background="#0a8b0002"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"/>
+
+                <TextView
+                    android:id="@+id/list_item_subtitle"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="15dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Title"
+                    android:textSize="13sp"
+                    android:background="#0a8b0002"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"/>
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/list_item_title"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:paddingLeft="15dp"
+                android:id="@+id/list_item_status"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Title"
+                android:text="Average"
                 android:textSize="18sp"
                 android:background="#0a8b0002"
-                android:autoText="true"/>
-
-            <TextView
-                android:id="@+id/list_item_subtitle"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:paddingLeft="15dp"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Title"
-                android:textSize="13sp"
-                android:background="#0a8b0002"
-                android:autoText="true"/>
-
+                android:autoText="false"
+                android:layout_weight="2"
+                android:gravity="center_vertical|right"
+                android:paddingRight="20dp"
+                android:textColor="#ffd7a900"
+                android:focusable="false"
+                android:focusableInTouchMode="false"/>
         </LinearLayout>
 
         <TextView
-            android:id="@+id/list_item_status"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Average"
-            android:textSize="18sp"
-            android:background="#0a8b0002"
-            android:autoText="true"
-            android:layout_weight="1"
-            android:gravity="center_vertical|right"
-            android:paddingRight="20dp"
-            android:textColor="#ffd7a900"/>
-    </LinearLayout>
+            android:text="DEFENSE"
+            android:id="@+id/list_item_side"
+            android:gravity="center_vertical|left"
+            android:maxLines="1"
+            android:textSize="40sp"
+            android:textColor="#3ca5a5a5"
+            android:paddingLeft="90dp"
+            android:paddingRight="90dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
+    </RelativeLayout>
 
 </RelativeLayout>

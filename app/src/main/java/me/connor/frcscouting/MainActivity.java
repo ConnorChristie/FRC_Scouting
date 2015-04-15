@@ -1,10 +1,14 @@
 package me.connor.frcscouting;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import me.connor.frcscouting.fragments.MatchesFragment;
+import me.connor.frcscouting.fragments.TeamsFragment;
 
 public class MainActivity extends ActionBarActivity
 {
@@ -17,7 +21,10 @@ public class MainActivity extends ActionBarActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		mSectionsPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager());
+		mSectionsPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager(), new Fragment[] {
+				new MatchesFragment(),
+				new TeamsFragment()
+		});
 
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
