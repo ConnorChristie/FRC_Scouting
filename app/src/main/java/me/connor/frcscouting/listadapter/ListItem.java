@@ -5,9 +5,14 @@ import android.view.View;
 
 public abstract class ListItem
 {
-	protected int layout;
+	private int layout;
 
 	public abstract boolean isHeader();
+
+	public ListItem(int layout)
+	{
+		this.layout = layout;
+	}
 
 	public View populate(View view, LayoutInflater li)
 	{

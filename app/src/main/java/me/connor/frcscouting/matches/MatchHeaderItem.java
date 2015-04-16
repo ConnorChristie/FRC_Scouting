@@ -17,7 +17,8 @@ public class MatchHeaderItem extends ListItem
 
 	public MatchHeaderItem(Date matchTime)
 	{
-		this.layout = R.layout.list_header;
+		super(R.layout.match_list_header);
+
 		this.matchTime = matchTime;
 	}
 

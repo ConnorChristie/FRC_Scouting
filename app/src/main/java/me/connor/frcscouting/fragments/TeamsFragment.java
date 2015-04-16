@@ -1,5 +1,6 @@
 package me.connor.frcscouting.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,15 +11,15 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import me.connor.frcscouting.R;
 import me.connor.frcscouting.listadapter.ListAdapter;
 import me.connor.frcscouting.listadapter.ListItem;
-import me.connor.frcscouting.matches.MatchHeaderItem;
 import me.connor.frcscouting.matches.MatchItem;
-import me.connor.frcscouting.matches.TeamStatus;
+import me.connor.frcscouting.teaminfo.TeamInfo;
+import me.connor.frcscouting.teams.Team;
+import me.connor.frcscouting.teams.TeamItem;
 
 public class TeamsFragment extends Fragment
 {
@@ -38,19 +39,23 @@ public class TeamsFragment extends Fragment
 	{
 		View view = inflater.inflate(R.layout.fragment_teams, container, false);
 
-		itemsSections.add(new MatchItem(4095, "Team RoXI", true, TeamStatus.BAD, "OFFENSE"));
-		itemsSections.add(new MatchItem(2045, "Robonauts", true, TeamStatus.GOOD, "OFFENSE"));
-		itemsSections.add(new MatchItem(3584, "Gladiators", true, TeamStatus.GOOD, "DEFENSE"));
+		itemsSections.add(new TeamItem(new Team(4095, "Team RoXI", "")));
+		itemsSections.add(new TeamItem(new Team(3648, "Marquette Warriors", "")));
 
 		teamsList = (ListView) view.findViewById(R.id.teamsList);
-		teamsList.setAdapter(new ListAdapter(view.getContext(), R.layout.list_item, itemsSections));
+		teamsList.setAdapter(new ListAdapter(view.getContext(), R.layout.team_list_item, itemsSections));
 
 		teamsList.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 			{
-				System.out.println("Hello Clicked");
+				TeamItem teamItem = (TeamItem) parent.getItemAtPosition(position);
+				Intent teamInfoIntent = new Intent(getActivity(), TeamInfo.class);
+
+				teamInfoIntent.putExtra("teamData", teamItem.getTeam());
+
+				startActivity(teamInfoIntent);
 			}
 		});
 

@@ -48,7 +48,7 @@ public class MatchesFragment extends Fragment
 		itemsSections.add(new MatchItem(2497, "Dolphins", false, TeamStatus.AVERAGE, "DEFENSE"));
 
 		matchesList = (ListView) view.findViewById(R.id.matchesList);
-		matchesList.setAdapter(new ListAdapter(view.getContext(), R.layout.list_item, itemsSections));
+		matchesList.setAdapter(new ListAdapter(view.getContext(), R.layout.match_list_item, itemsSections));
 
 		matchesList.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{

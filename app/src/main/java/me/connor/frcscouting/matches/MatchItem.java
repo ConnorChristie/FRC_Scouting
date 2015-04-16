@@ -19,7 +19,8 @@ public class MatchItem extends ListItem
 
 	public MatchItem(int teamId, String teamNickname, boolean isAlliance, TeamStatus status, String side)
 	{
-		this.layout = R.layout.list_item;
+		super(R.layout.match_list_item);
+
 		this.teamId = teamId;
 		this.teamNickname = teamNickname;
 		this.isAlliance = isAlliance;
@@ -31,10 +32,10 @@ public class MatchItem extends ListItem
 	{
 		view = super.populate(view, li);
 
-		TextView name = (TextView) view.findViewById(R.id.list_item_title);
-		TextView subtitle = (TextView) view.findViewById(R.id.list_item_subtitle);
-		TextView status = (TextView) view.findViewById(R.id.list_item_status);
-		TextView side = (TextView) view.findViewById(R.id.list_item_side);
+		TextView name = (TextView) view.findViewById(R.id.match_item_title);
+		TextView subtitle = (TextView) view.findViewById(R.id.match_item_subtitle);
+		TextView status = (TextView) view.findViewById(R.id.match_item_status);
+		TextView side = (TextView) view.findViewById(R.id.match_item_side);
 
 		if (name != null)
 		{
