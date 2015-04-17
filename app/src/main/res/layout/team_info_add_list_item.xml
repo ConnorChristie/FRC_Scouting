@@ -17,11 +17,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Add Category"
+            android:text="ADD CATEGORY"
             android:id="@+id/category"
             android:layout_weight="1"
             android:paddingLeft="15dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:background="#ff93b8dd"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"/>
 
     </RelativeLayout>
 

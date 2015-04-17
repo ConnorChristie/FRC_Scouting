@@ -13,6 +13,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.connor.frcscouting.MainActivity;
 import me.connor.frcscouting.R;
 import me.connor.frcscouting.listadapter.ListAdapter;
 import me.connor.frcscouting.listadapter.ListItem;
@@ -39,8 +40,14 @@ public class TeamsFragment extends Fragment
 	{
 		View view = inflater.inflate(R.layout.fragment_teams, container, false);
 
-		itemsSections.add(new TeamItem(new Team(4095, "Team RoXI", "")));
-		itemsSections.add(new TeamItem(new Team(3648, "Marquette Warriors", "")));
+		for (Team team : ((MainActivity) getActivity()).getTeams())
+		{
+			itemsSections.add(new TeamItem(team));
+		}
+
+		//itemsSections.add(new TeamItem(new Team(4095, "Team RoXI", "")));
+		//itemsSections.add(new TeamItem(new Team(3648, "Marquette Warriors", "")));
+		//itemsSections.add(new TeamItem(new Team(1642, "King Fishers", "")));
 
 		teamsList = (ListView) view.findViewById(R.id.teamsList);
 		teamsList.setAdapter(new ListAdapter(view.getContext(), R.layout.team_list_item, itemsSections));

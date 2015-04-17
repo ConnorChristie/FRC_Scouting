@@ -26,7 +26,9 @@
                 android:layout_marginBottom="5dp"
                 android:layout_weight="1"
                 android:singleLine="true"
-                android:imeOptions="actionDone"/>
+                android:imeOptions="actionDone"
+                android:theme="@android:style/Theme.Holo.Light"
+                android:backgroundTint="@android:color/holo_orange_dark"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -38,7 +40,9 @@
                 android:layout_marginBottom="5dp"
                 android:layout_weight="2"
                 android:singleLine="true"
-                android:imeOptions="actionDone"/>
+                android:imeOptions="actionDone"
+                android:theme="@android:style/Theme.Holo.Light"
+                android:backgroundTint="@android:color/holo_orange_dark"/>
         </LinearLayout>
 
         <LinearLayout
@@ -46,6 +50,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:background="#ffc9c9c9"/>
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -63,9 +72,9 @@
                     android:gravity="center"/>
 
                 <View
-                    android:layout_width="0.4dp"
+                    android:layout_width="0.5dp"
                     android:layout_height="match_parent"
-                    android:background="#ff676767"/>
+                    android:background="#ffc9c9c9"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -79,8 +88,8 @@
 
             <View
                 android:layout_width="fill_parent"
-                android:layout_height="0.4dp"
-                android:background="#ff676767"/>
+                android:layout_height="0.5dp"
+                android:background="#ffc9c9c9"/>
 
             <ListView
                 android:layout_width="wrap_content"

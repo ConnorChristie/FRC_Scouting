@@ -6,7 +6,8 @@ public enum TeamStatus
 {
 	GOOD("Good", "#ff07b100"),
 	AVERAGE("Average", "#ffd7a900"),
-	BAD("Bad", "#ffd00b00");
+	BAD("Bad", "#ffd00b00"),
+	UNDEFINED("-", "#000000");
 
 	private String title;
 	private int color;
@@ -25,5 +26,21 @@ public enum TeamStatus
 	public int getColor()
 	{
 		return color;
+	}
+
+	public static TeamStatus getFromInt(int score)
+	{
+		if (score > 0 && score <= 3)
+		{
+			return BAD;
+		} else if (score > 3 && score <= 7)
+		{
+			return AVERAGE;
+		} else if (score > 7 && score <= 10)
+		{
+			return GOOD;
+		}
+
+		return UNDEFINED;
 	}
 }

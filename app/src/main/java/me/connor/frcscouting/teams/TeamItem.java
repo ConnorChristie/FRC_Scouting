@@ -35,11 +35,11 @@ public class TeamItem extends ListItem
 			name.setText(team.getTeamName());
 			subtitle.setText(team.getTeamNumber() + "");
 
-			offense.setText(team.getOffenseScore().getTitle());
-			offense.setTextColor(team.getOffenseScore().getColor());
+			offense.setText(team.getOffenseStatus().getTitle());
+			offense.setTextColor(team.getOffenseStatus().getColor());
 
-			defense.setText(team.getDefenseScore().getTitle());
-			defense.setTextColor(team.getDefenseScore().getColor());
+			defense.setText(team.getDefenseStatus().getTitle());
+			defense.setTextColor(team.getDefenseStatus().getColor());
 		}
 
 		return view;

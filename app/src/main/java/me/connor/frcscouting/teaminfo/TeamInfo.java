@@ -2,7 +2,6 @@ package me.connor.frcscouting.teaminfo;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -12,24 +11,19 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.astuetz.PagerSlidingTabStrip;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import me.connor.frcscouting.R;
 import me.connor.frcscouting.TabsPagerAdapter;
-import me.connor.frcscouting.fragments.MatchesFragment;
-import me.connor.frcscouting.fragments.TeamsFragment;
-import me.connor.frcscouting.listadapter.ListAdapter;
 import me.connor.frcscouting.listadapter.ListItem;
+import me.connor.frcscouting.teamfragments.TeamCommentsFragment;
 import me.connor.frcscouting.teamfragments.TeamInfoFragment;
 import me.connor.frcscouting.teams.Team;
 
@@ -37,10 +31,6 @@ public class TeamInfo extends ActionBarActivity
 {
 	private Team team;
 
-	private EditText teamName;
-	private EditText teamNumber;
-
-	private ListView statsList;
 	private List<ListItem> itemsSections = new ArrayList<>();
 
 	private TabsPagerAdapter mSectionsPagerAdapter;
@@ -60,39 +50,22 @@ public class TeamInfo extends ActionBarActivity
 		getSupportActionBar().setSubtitle(team.getTeamNumber() + "");
 
 		mSectionsPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager(), new Fragment[] {
-				new TeamInfoFragment()
+				new TeamInfoFragment(),
+				new TeamCommentsFragment()
 		});
 
 		mViewPager = (ViewPager) findViewById(R.id.team_info_pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
+	}
 
+	public Team getTeam()
+	{
+		return team;
+	}
 
-		/*
-		((TextView) findViewById(R.id.team_name)).setText(team.getTeamName());
-		((TextView) findViewById(R.id.team_number)).setText(team.getTeamNumber() + "");
-
-		findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				finish();
-			}
-		});
-
-		teamName = (EditText) findViewById(R.id.team_name);
-		teamNumber = (EditText) findViewById(R.id.team_number);
-
-		teamName.setOnEditorActionListener(textEditDoneEvent);
-		teamNumber.setOnEditorActionListener(textEditDoneEvent);
-
-		itemsSections.add(new CategoryItem("Offense", 8));
-		itemsSections.add(new CategoryItem("Defense", 4));
-		itemsSections.add(new CategoryAddItem());
-
-		statsList = (ListView) findViewById(R.id.statsList);
-		statsList.setAdapter(new ListAdapter(this, R.layout.team_info_list_item, itemsSections));
-		*/
+	public List<ListItem> getItemsSections()
+	{
+		return itemsSections;
 	}
 
 	@Override
@@ -116,7 +89,7 @@ public class TeamInfo extends ActionBarActivity
 		return super.onOptionsItemSelected(item);
 	}
 
-	private TextView.OnEditorActionListener textEditDoneEvent = new TextView.OnEditorActionListener()
+	public TextView.OnEditorActionListener textEditDoneEvent = new TextView.OnEditorActionListener()
 	{
 		@Override
 		public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
@@ -126,7 +99,7 @@ public class TeamInfo extends ActionBarActivity
 				findViewById(R.id.team_info_layout).requestFocus();
 
 				InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-				in.hideSoftInputFromWindow(teamName.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+				in.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
 				return true;
 			}

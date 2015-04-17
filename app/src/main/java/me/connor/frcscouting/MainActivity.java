@@ -7,11 +7,21 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.List;
+
+import me.connor.frcscouting.database.DatabaseDataSource;
+import me.connor.frcscouting.database.DatabaseHelper;
 import me.connor.frcscouting.fragments.MatchesFragment;
 import me.connor.frcscouting.fragments.TeamsFragment;
+import me.connor.frcscouting.teaminfo.CategoryItem;
+import me.connor.frcscouting.teams.Team;
 
 public class MainActivity extends ActionBarActivity
 {
+	private DatabaseDataSource db;
+
+	private List<Team> teams;
+
 	private TabsPagerAdapter mSectionsPagerAdapter;
 	private ViewPager mViewPager;
 
@@ -21,6 +31,19 @@ public class MainActivity extends ActionBarActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		db = new DatabaseDataSource(this);
+		db.open();
+
+		//db.saveCategory(new CategoryItem(1, 1, "Offense", 4));
+		//db.saveCategory(new CategoryItem(2, 1, "Defense", 8));
+		//db.saveCategory(new CategoryItem(3, 2, "Defense", 2));
+
+		//db.saveTeam(new Team(1, 4095, "Team RoXI", "They have a super tall defense arm."));
+		//db.saveTeam(new Team(2, 3648, "Marquette Warriors", "Great maneuverability"));
+		//db.saveTeam(new Team(3, 1642, "King Fishers", "The best offense of all time"));
+
+		teams = db.getAllTeams();
+
 		mSectionsPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager(), new Fragment[] {
 				new MatchesFragment(),
 				new TeamsFragment()
@@ -28,6 +51,11 @@ public class MainActivity extends ActionBarActivity
 
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
+	}
+
+	public List<Team> getTeams()
+	{
+		return teams;
 	}
 
 	@Override
