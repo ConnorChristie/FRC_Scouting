@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -27,7 +29,7 @@ import me.connor.frcscouting.teamfragments.TeamCommentsFragment;
 import me.connor.frcscouting.teamfragments.TeamInfoFragment;
 import me.connor.frcscouting.teams.Team;
 
-public class TeamInfo extends ActionBarActivity
+public class TeamInfoActivity extends ActionBarActivity implements ActionBar.TabListener
 {
 	private Team team;
 
@@ -56,6 +58,32 @@ public class TeamInfo extends ActionBarActivity
 
 		mViewPager = (ViewPager) findViewById(R.id.team_info_pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
+
+		mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
+		{
+			@Override
+			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
+			{
+
+			}
+
+			@Override
+			public void onPageSelected(int position)
+			{
+				getSupportActionBar().setSelectedNavigationItem(position);
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int state)
+			{
+
+			}
+		});
+
+		getSupportActionBar().setElevation(0);
+		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		getSupportActionBar().addTab(getSupportActionBar().newTab().setText("Info").setTabListener(this));
+		getSupportActionBar().addTab(getSupportActionBar().newTab().setText("Comments").setTabListener(this));
 	}
 
 	public Team getTeam()
@@ -108,28 +136,21 @@ public class TeamInfo extends ActionBarActivity
 		}
 	};
 
-	public class MyPagerAdapter extends FragmentPagerAdapter
+	@Override
+	public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction)
 	{
-		private final String[] TITLES = { "Info", "Statistics", "Comments" };
+		mViewPager.setCurrentItem(tab.getPosition(), true);
+	}
 
-		public MyPagerAdapter(FragmentManager fm) {
-			super(fm);
-		}
+	@Override
+	public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction)
+	{
 
-		@Override
-		public CharSequence getPageTitle(int position) {
-			return TITLES[position];
-		}
+	}
 
-		@Override
-		public int getCount() {
-			return TITLES.length;
-		}
-
-		@Override
-		public Fragment getItem(int position) {
-			return new TeamInfoFragment();
-		}
+	@Override
+	public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction)
+	{
 
 	}
 }

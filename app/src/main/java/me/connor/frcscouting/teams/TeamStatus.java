@@ -1,4 +1,4 @@
-package me.connor.frcscouting.matches;
+package me.connor.frcscouting.teams;
 
 import android.graphics.Color;
 

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import me.connor.frcscouting.R;
-import me.connor.frcscouting.teaminfo.TeamInfo;
+import me.connor.frcscouting.teaminfo.TeamInfoActivity;
 
 public class TeamCommentsFragment extends Fragment
 {
@@ -18,7 +18,7 @@ public class TeamCommentsFragment extends Fragment
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		final View view = inflater.inflate(R.layout.fragment_team_comments, container, false);
-		final TeamInfo teamInfo = (TeamInfo) getActivity();
+		final TeamInfoActivity teamInfo = (TeamInfoActivity) getActivity();
 
 		((EditText) view.findViewById(R.id.comments)).setText(teamInfo.getTeam().getComments());
 

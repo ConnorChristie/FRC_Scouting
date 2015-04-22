@@ -8,29 +8,29 @@ import android.widget.TextView;
 
 import me.connor.frcscouting.R;
 import me.connor.frcscouting.listadapter.ListItem;
+import me.connor.frcscouting.teams.Team;
 
-public class MatchItem extends ListItem
+public class MatchTeamItem extends ListItem
 {
-	private int teamId;
-	private String teamNickname;
+	private Team team;
 	private boolean isAlliance;
-	private TeamStatus status;
 	private String side;
 
-	public MatchItem(int teamId, String teamNickname, boolean isAlliance, TeamStatus status, String side)
+	public MatchTeamItem(Team team, boolean isAlliance, String side)
 	{
 		super(R.layout.match_list_item);
 
-		this.teamId = teamId;
-		this.teamNickname = teamNickname;
+		this.team = team;
 		this.isAlliance = isAlliance;
-		this.status = status;
 		this.side = side;
 	}
 
 	public View populate(View view, LayoutInflater li)
 	{
-		view = super.populate(view, li);
+		if (view == null)
+		{
+			view = super.populate(view, li);
+		}
 
 		TextView name = (TextView) view.findViewById(R.id.match_item_title);
 		TextView subtitle = (TextView) view.findViewById(R.id.match_item_subtitle);
@@ -39,20 +39,19 @@ public class MatchItem extends ListItem
 
 		if (name != null)
 		{
-			name.setText(getTeamNickname());
-			subtitle.setText(getTeamId() + "");
+			name.setText(team.getTeamName());
+			subtitle.setText(team.getTeamNumber() + "");
 			side.setText(getSide());
 
 			if (getSide().equals("OFFENSE"))
 			{
-				side.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
+				status.setText(team.getOffenseStatus().getTitle());
+				status.setTextColor(team.getOffenseStatus().getColor());
 			} else
 			{
-				side.setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT);
+				status.setText(team.getDefenseStatus().getTitle());
+				status.setTextColor(team.getDefenseStatus().getColor());
 			}
-
-			status.setText(getStatus().getTitle());
-			status.setTextColor(getStatus().getColor());
 
 			if (isAlliance())
 			{
@@ -66,24 +65,14 @@ public class MatchItem extends ListItem
 		return view;
 	}
 
-	public int getTeamId()
+	public Team getTeam()
 	{
-		return teamId;
-	}
-
-	public String getTeamNickname()
-	{
-		return teamNickname;
+		return team;
 	}
 
 	public boolean isAlliance()
 	{
 		return isAlliance;
-	}
-
-	public TeamStatus getStatus()
-	{
-		return status;
 	}
 
 	public String getSide()

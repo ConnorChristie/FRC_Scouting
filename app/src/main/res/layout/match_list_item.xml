@@ -76,14 +76,14 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="DEFENSE"
             android:id="@+id/match_item_side"
-            android:gravity="center_vertical|left"
             android:maxLines="1"
             android:textSize="40sp"
             android:textColor="#3ca5a5a5"
             android:paddingLeft="90dp"
             android:paddingRight="90dp"
             android:focusable="false"
-            android:focusableInTouchMode="false"/>
+            android:focusableInTouchMode="false"
+            android:gravity="center"/>
     </RelativeLayout>
 
 </RelativeLayout>

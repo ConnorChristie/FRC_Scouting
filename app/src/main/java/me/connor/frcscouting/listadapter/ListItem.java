@@ -5,7 +5,7 @@ import android.view.View;
 
 public abstract class ListItem
 {
-	private int layout;
+	public int layout;
 
 	public abstract boolean isHeader();
 

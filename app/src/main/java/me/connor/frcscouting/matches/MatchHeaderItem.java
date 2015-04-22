@@ -24,7 +24,10 @@ public class MatchHeaderItem extends ListItem
 
 	public View populate(View view, LayoutInflater li)
 	{
-		view = super.populate(view, li);
+		if (view == null)
+		{
+			view = super.populate(view, li);
+		}
 
 		TextView section = (TextView) view.findViewById(R.id.list_header_title);
 		section.setText(getMatchTimeString());

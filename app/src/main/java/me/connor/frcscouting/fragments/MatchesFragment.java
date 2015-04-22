@@ -1,7 +1,9 @@
 package me.connor.frcscouting.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,21 +11,25 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.applidium.headerlistview.HeaderListView;
+import com.applidium.headerlistview.SectionAdapter;
+
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import me.connor.frcscouting.MainActivity;
 import me.connor.frcscouting.R;
 import me.connor.frcscouting.listadapter.ListAdapter;
 import me.connor.frcscouting.listadapter.ListItem;
+import me.connor.frcscouting.matches.Match;
 import me.connor.frcscouting.matches.MatchHeaderItem;
-import me.connor.frcscouting.matches.MatchItem;
-import me.connor.frcscouting.matches.TeamStatus;
+import me.connor.frcscouting.matches.MatchTeamItem;
 
 public class MatchesFragment extends Fragment
 {
-	private ListView matchesList;
-	private List<ListItem> itemsSections = new ArrayList<>();
+	private HeaderListView matchesList;
+	private List<Match> matches = new ArrayList<>();
 
 	public MatchesFragment() { }
 
@@ -36,20 +42,101 @@ public class MatchesFragment extends Fragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		View view = inflater.inflate(R.layout.fragment_matches, container, false);
+		final View view = inflater.inflate(R.layout.fragment_matches, container, false);
 
-		itemsSections.add(new MatchHeaderItem(new GregorianCalendar(2015, 4, 11, 16, 45, 19).getTime()));
-		itemsSections.add(new MatchItem(4095, "Team RoXI", true, TeamStatus.BAD, "OFFENSE"));
-		itemsSections.add(new MatchItem(2045, "Robonauts", true, TeamStatus.GOOD, "OFFENSE"));
-		itemsSections.add(new MatchItem(3584, "Gladiators", true, TeamStatus.GOOD, "DEFENSE"));
+		matches.add(new Match(new MatchHeaderItem(new GregorianCalendar(2015, 4, 11, 16, 45, 0).getTime()), new MatchTeamItem[] {
+				new MatchTeamItem(((MainActivity) getActivity()).getTeam(1), true, "OFFENSE"),
+				new MatchTeamItem(((MainActivity) getActivity()).getTeam(3), true, "OFFENSE"),
+				new MatchTeamItem(((MainActivity) getActivity()).getTeam(2), true, "DEFENSE"),
 
-		itemsSections.add(new MatchItem(1897, "King Fishers", false, TeamStatus.AVERAGE, "DEFENSE"));
-		itemsSections.add(new MatchItem(3648, "Marquette Warriors", false, TeamStatus.BAD, "OFFENSE"));
-		itemsSections.add(new MatchItem(2497, "Dolphins", false, TeamStatus.AVERAGE, "DEFENSE"));
+				new MatchTeamItem(((MainActivity) getActivity()).getTeam(2), false, "DEFENSE"),
+				new MatchTeamItem(((MainActivity) getActivity()).getTeam(1), false, "OFFENSE"),
+				new MatchTeamItem(((MainActivity) getActivity()).getTeam(3), false, "DEFENSE"),
+		}));
 
-		matchesList = (ListView) view.findViewById(R.id.matchesList);
-		matchesList.setAdapter(new ListAdapter(view.getContext(), R.layout.match_list_item, itemsSections));
+		matches.add(new Match(new MatchHeaderItem(new GregorianCalendar(2015, 4, 11, 17, 30, 0).getTime()), new MatchTeamItem[] {
+				new MatchTeamItem(((MainActivity) getActivity()).getTeam(1), true, "OFFENSE"),
+				new MatchTeamItem(((MainActivity) getActivity()).getTeam(3), true, "OFFENSE"),
+				new MatchTeamItem(((MainActivity) getActivity()).getTeam(2), true, "DEFENSE"),
 
+				new MatchTeamItem(((MainActivity) getActivity()).getTeam(2), false, "DEFENSE"),
+				new MatchTeamItem(((MainActivity) getActivity()).getTeam(1), false, "OFFENSE"),
+				new MatchTeamItem(((MainActivity) getActivity()).getTeam(3), false, "DEFENSE"),
+		}));
+
+		matchesList = (HeaderListView) view.findViewById(R.id.matchesList);
+		//matchesList.setAdapter(new ListAdapter(view.getContext(), R.layout.match_list_item, matches));
+
+		matchesList.setAdapter(new SectionAdapter()
+		{
+			@Override
+			public int numberOfSections()
+			{
+				return matches.size();
+			}
+
+			@Override
+			public int numberOfRows(int section)
+			{
+				return matches.get(section).getMatchTeams().size();
+			}
+
+			@Override
+			public View getRowView(int section, int row, View convertView, ViewGroup parent)
+			{
+				MatchTeamItem item = (MatchTeamItem) getRowItem(section, row);
+
+				return item.populate(convertView, (LayoutInflater) view.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE));
+			}
+
+			@Override
+			public View getSectionHeaderView(int section, View convertView, ViewGroup parent)
+			{
+				MatchHeaderItem item = matches.get(section).getHeader();
+
+				return item.populate(convertView, (LayoutInflater) view.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE));
+			}
+
+			@Override
+			public boolean hasSectionHeaderView(int section) {
+				return true;
+			}
+
+			@Override
+			public Object getRowItem(int section, int row)
+			{
+				Match match = matches.get(section);
+
+				return match.getMatchTeams().get(row);
+			}
+
+			@Override
+			public void onRowItemClick(AdapterView<?> parent, View view, int section, int row, long id)
+			{
+
+			}
+
+			@Override
+			public boolean onRowItemLongClick(AdapterView<?> parent, View view, int section, int row, long id)
+			{
+				if (isSectionHeader((int) id)) return false;
+
+				MatchTeamItem item = (MatchTeamItem) getRowItem(section, row);
+
+				if (item.getSide().equals("OFFENSE"))
+					item.setSide("DEFENSE");
+				else
+					item.setSide("OFFENSE");
+
+				notifyDataSetChanged();
+
+				Toast.makeText(view.getContext(), "Changed side to " + item.getSide(), Toast.LENGTH_LONG).show();
+
+				return true;
+			}
+		});
+
+		/*
 		matchesList.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{
 			@Override
@@ -66,9 +153,9 @@ public class MatchesFragment extends Fragment
 			{
 				Object clicked = parent.getItemAtPosition(position);
 
-				if (clicked instanceof MatchItem)
+				if (clicked instanceof MatchTeamItem)
 				{
-					MatchItem item = (MatchItem) clicked;
+					MatchTeamItem item = (MatchTeamItem) clicked;
 
 					if (item.getSide().equals("OFFENSE"))
 						item.setSide("DEFENSE");
@@ -83,6 +170,7 @@ public class MatchesFragment extends Fragment
 				return true;
 			}
 		});
+		*/
 
 		return view;
 	}

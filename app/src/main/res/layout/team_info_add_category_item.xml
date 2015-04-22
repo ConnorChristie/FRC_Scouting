@@ -2,29 +2,32 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
     android:focusable="false"
-    android:focusableInTouchMode="false">
+    android:focusableInTouchMode="false"
+    android:background="#8293b8dd">
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:focusable="false"
         android:focusableInTouchMode="false"
-        android:background="#227d7d7d">
+        android:background="#8293b8dd">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="ADD CATEGORY"
-            android:id="@+id/category"
+            android:id="@+id/add_category"
             android:layout_weight="1"
             android:paddingLeft="15dp"
             android:gravity="center"
-            android:background="#ff93b8dd"
             android:textColor="@android:color/white"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            />
 
     </RelativeLayout>
 

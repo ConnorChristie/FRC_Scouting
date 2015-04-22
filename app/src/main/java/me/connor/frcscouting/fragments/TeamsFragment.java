@@ -17,15 +17,15 @@ import me.connor.frcscouting.MainActivity;
 import me.connor.frcscouting.R;
 import me.connor.frcscouting.listadapter.ListAdapter;
 import me.connor.frcscouting.listadapter.ListItem;
-import me.connor.frcscouting.matches.MatchItem;
-import me.connor.frcscouting.teaminfo.TeamInfo;
+import me.connor.frcscouting.matches.MatchTeamItem;
+import me.connor.frcscouting.teaminfo.TeamInfoActivity;
 import me.connor.frcscouting.teams.Team;
 import me.connor.frcscouting.teams.TeamItem;
 
 public class TeamsFragment extends Fragment
 {
 	private ListView teamsList;
-	private List<ListItem> itemsSections = new ArrayList<>();
+	private List<ListItem> teams = new ArrayList<>();
 
 	public TeamsFragment() { }
 
@@ -42,7 +42,7 @@ public class TeamsFragment extends Fragment
 
 		for (Team team : ((MainActivity) getActivity()).getTeams())
 		{
-			itemsSections.add(new TeamItem(team));
+			teams.add(new TeamItem(team));
 		}
 
 		//itemsSections.add(new TeamItem(new Team(4095, "Team RoXI", "")));
@@ -50,7 +50,7 @@ public class TeamsFragment extends Fragment
 		//itemsSections.add(new TeamItem(new Team(1642, "King Fishers", "")));
 
 		teamsList = (ListView) view.findViewById(R.id.teamsList);
-		teamsList.setAdapter(new ListAdapter(view.getContext(), R.layout.team_list_item, itemsSections));
+		teamsList.setAdapter(new ListAdapter(view.getContext(), R.layout.team_list_item, teams));
 
 		teamsList.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{
@@ -58,7 +58,7 @@ public class TeamsFragment extends Fragment
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 			{
 				TeamItem teamItem = (TeamItem) parent.getItemAtPosition(position);
-				Intent teamInfoIntent = new Intent(getActivity(), TeamInfo.class);
+				Intent teamInfoIntent = new Intent(getActivity(), TeamInfoActivity.class);
 
 				teamInfoIntent.putExtra("teamData", teamItem.getTeam());
 
@@ -73,9 +73,9 @@ public class TeamsFragment extends Fragment
 			{
 				Object clicked = parent.getItemAtPosition(position);
 
-				if (clicked instanceof MatchItem)
+				if (clicked instanceof MatchTeamItem)
 				{
-					MatchItem item = (MatchItem) clicked;
+					MatchTeamItem item = (MatchTeamItem) clicked;
 
 					if (item.getSide().equals("OFFENSE"))
 						item.setSide("DEFENSE");

@@ -1,54 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<com.daimajia.swipe.SwipeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:focusable="false"
-    android:focusableInTouchMode="false">
+    android:layout_height="45dp"
+    android:id="@+id/swipeLayout">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:background="#22c8c8c8">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="#66ddff00"
+        android:id="@+id/bottom_wrapper"
+        android:layout_width="120dp"
+        android:weightSum="1"
+        android:layout_height="match_parent">
+        <!--What you want to show-->
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Delete"
+            android:id="@+id/delete"
+            android:background="#fff3624b"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
 
-        <LinearLayout
-            android:orientation="horizontal"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffe3e3e3">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Offense"
+            android:id="@+id/category"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"/>
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="#ffc9c9c9"/>
+
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            >
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/score"
+            android:layout_weight="2"
+            android:layout_margin="5dp"
+            android:hint="Score"
+            android:imeOptions="actionDone"
+            android:theme="@android:style/Theme.Holo.Light"
+            android:backgroundTint="@android:color/holo_blue_dark"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+    </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Offense"
-                android:id="@+id/category"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dp"/>
-
-            <View
-                android:layout_width="0.5dp"
-                android:layout_height="match_parent"
-                android:background="#ffc9c9c9"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/score"
-                android:layout_weight="2"
-                android:layout_margin="5dp"
-                android:hint="Score"
-                android:imeOptions="actionDone"
-                android:gravity="center_horizontal"/>
-        </LinearLayout>
-
-    </RelativeLayout>
-
-</RelativeLayout>
+</com.daimajia.swipe.SwipeLayout>
