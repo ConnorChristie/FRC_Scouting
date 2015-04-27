@@ -10,5 +10,5 @@
     style="?android:attr/listSeparatorTextViewStyle"
     android:text="MAY 11 AT 4:45 PM"
     android:textColor="#ff707070"
-    android:background="#ffd5d5d5"
+    android:background="#ffd9d9d9"
     android:textSize="12sp"/>
