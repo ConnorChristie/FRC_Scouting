@@ -1,4 +1,4 @@
-package me.connor.frcscouting.matches;
+package me.connor.frcscouting.tabs.match_tab.table_items;
 
 import android.view.LayoutInflater;
 import android.view.View;

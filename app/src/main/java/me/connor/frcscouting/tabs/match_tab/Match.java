@@ -1,10 +1,12 @@
-package me.connor.frcscouting.matches;
+package me.connor.frcscouting.tabs.match_tab;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import me.connor.frcscouting.listadapter.ListItem;
+import me.connor.frcscouting.tabs.match_tab.table_items.MatchHeaderItem;
+import me.connor.frcscouting.tabs.match_tab.table_items.MatchTeamItem;
 
 public class Match
 {

@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper
 {
 	public static final String DATABASE_NAME = "frc_scouting.db";
-	public static final int DATABASE_VERSION = 6;
+	public static final int DATABASE_VERSION = 7;
 
 	public static final String TABLE_TEAMS = "teams";
 	public static final String COLUMN_TEAM_ID = "id";

@@ -1,4 +1,4 @@
-package me.connor.frcscouting.teams;
+package me.connor.frcscouting.tabs.team_tab;
 
 import android.graphics.Color;
 

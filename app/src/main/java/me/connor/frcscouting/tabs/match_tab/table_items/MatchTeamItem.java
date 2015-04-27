@@ -1,14 +1,13 @@
-package me.connor.frcscouting.matches;
+package me.connor.frcscouting.tabs.match_tab.table_items;
 
 import android.graphics.Color;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
 import me.connor.frcscouting.R;
 import me.connor.frcscouting.listadapter.ListItem;
-import me.connor.frcscouting.teams.Team;
+import me.connor.frcscouting.tabs.team_tab.Team;
 
 public class MatchTeamItem extends ListItem
 {

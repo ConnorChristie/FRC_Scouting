@@ -1,9 +1,8 @@
-package me.connor.frcscouting.teaminfo;
+package me.connor.frcscouting.tabs.team_tab.info_view.tabs.info_tab.table_items;
 
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;

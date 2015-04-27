@@ -1,25 +1,21 @@
 package me.connor.frcscouting;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
-import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 import me.connor.frcscouting.database.DatabaseDataSource;
-import me.connor.frcscouting.fragments.MatchesFragment;
-import me.connor.frcscouting.fragments.TeamsFragment;
-import me.connor.frcscouting.teaminfo.CategoryItem;
-import me.connor.frcscouting.teams.Team;
+import me.connor.frcscouting.main_tabs.MatchesFragment;
+import me.connor.frcscouting.main_tabs.TeamsFragment;
+import me.connor.frcscouting.tabs.team_tab.Team;
+import me.connor.frcscouting.tabs.team_tab.info_view.tabs.info_tab.table_items.CategoryItem;
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener
 {

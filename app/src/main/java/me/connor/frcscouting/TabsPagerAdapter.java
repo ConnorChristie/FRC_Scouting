@@ -4,9 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import me.connor.frcscouting.fragments.MatchesFragment;
-import me.connor.frcscouting.fragments.TeamsFragment;
-
 public class TabsPagerAdapter extends FragmentPagerAdapter
 {
 	public Fragment[] tabs;

@@ -1,4 +1,4 @@
-package me.connor.frcscouting.teamfragments;
+package me.connor.frcscouting.tabs.team_tab.info_view.tabs.info_tab;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -9,8 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -23,8 +21,8 @@ import java.util.List;
 
 import me.connor.frcscouting.R;
 import me.connor.frcscouting.listadapter.ListItem;
-import me.connor.frcscouting.teaminfo.CategoryAddItem;
-import me.connor.frcscouting.teaminfo.TeamInfoActivity;
+import me.connor.frcscouting.tabs.team_tab.info_view.TeamInfoActivity;
+import me.connor.frcscouting.tabs.team_tab.info_view.tabs.info_tab.table_items.CategoryAddItem;
 
 public class TeamInfoFragment extends Fragment
 {
@@ -127,6 +125,8 @@ public class TeamInfoFragment extends Fragment
 									// get user input and set it to result
 									// edit text
 									//result.setText(userInput.getText());
+
+									Log.d("", categoryName.getText() + ": " + Integer.parseInt(categoryScore.getText().toString()));
 								}
 							})
 							.setNegativeButton("Cancel", new DialogInterface.OnClickListener()

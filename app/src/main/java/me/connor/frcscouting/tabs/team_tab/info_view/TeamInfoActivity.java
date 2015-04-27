@@ -1,10 +1,8 @@
-package me.connor.frcscouting.teaminfo;
+package me.connor.frcscouting.tabs.team_tab.info_view;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -15,8 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -25,9 +21,9 @@ import java.util.List;
 import me.connor.frcscouting.R;
 import me.connor.frcscouting.TabsPagerAdapter;
 import me.connor.frcscouting.listadapter.ListItem;
-import me.connor.frcscouting.teamfragments.TeamCommentsFragment;
-import me.connor.frcscouting.teamfragments.TeamInfoFragment;
-import me.connor.frcscouting.teams.Team;
+import me.connor.frcscouting.tabs.team_tab.Team;
+import me.connor.frcscouting.tabs.team_tab.info_view.tabs.comments_tab.TeamCommentsFragment;
+import me.connor.frcscouting.tabs.team_tab.info_view.tabs.info_tab.TeamInfoFragment;
 
 public class TeamInfoActivity extends ActionBarActivity implements ActionBar.TabListener
 {

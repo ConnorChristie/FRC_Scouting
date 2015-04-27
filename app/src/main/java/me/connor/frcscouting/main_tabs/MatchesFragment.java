@@ -1,14 +1,12 @@
-package me.connor.frcscouting.fragments;
+package me.connor.frcscouting.main_tabs;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.applidium.headerlistview.HeaderListView;
@@ -20,11 +18,9 @@ import java.util.List;
 
 import me.connor.frcscouting.MainActivity;
 import me.connor.frcscouting.R;
-import me.connor.frcscouting.listadapter.ListAdapter;
-import me.connor.frcscouting.listadapter.ListItem;
-import me.connor.frcscouting.matches.Match;
-import me.connor.frcscouting.matches.MatchHeaderItem;
-import me.connor.frcscouting.matches.MatchTeamItem;
+import me.connor.frcscouting.tabs.match_tab.Match;
+import me.connor.frcscouting.tabs.match_tab.table_items.MatchHeaderItem;
+import me.connor.frcscouting.tabs.match_tab.table_items.MatchTeamItem;
 
 public class MatchesFragment extends Fragment
 {

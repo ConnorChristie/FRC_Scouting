@@ -1,4 +1,4 @@
-package me.connor.frcscouting.teams;
+package me.connor.frcscouting.tabs.team_tab.table_items;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import me.connor.frcscouting.R;
 import me.connor.frcscouting.listadapter.ListItem;
+import me.connor.frcscouting.tabs.team_tab.Team;
 
 public class TeamItem extends ListItem
 {

@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".teaminfo.TeamInfoActivity"
+            android:name=".tabs.team_tab.info_view.TeamInfoActivity"
             android:label="@string/title_activity_team_info"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             android:configChanges="screenSize|orientation" >

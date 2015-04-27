@@ -1,4 +1,4 @@
-package me.connor.frcscouting.teamfragments;
+package me.connor.frcscouting.tabs.team_tab.info_view.tabs.comments_tab;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import me.connor.frcscouting.R;
-import me.connor.frcscouting.teaminfo.TeamInfoActivity;
+import me.connor.frcscouting.tabs.team_tab.info_view.TeamInfoActivity;
 
 public class TeamCommentsFragment extends Fragment
 {

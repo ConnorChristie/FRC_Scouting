@@ -1,4 +1,4 @@
-package me.connor.frcscouting.teams;
+package me.connor.frcscouting.tabs.team_tab;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.connor.frcscouting.teaminfo.CategoryItem;
+import me.connor.frcscouting.tabs.team_tab.info_view.tabs.info_tab.table_items.CategoryItem;
 
 public class Team implements Parcelable
 {

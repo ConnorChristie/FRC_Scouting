@@ -11,8 +11,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import me.connor.frcscouting.teaminfo.CategoryItem;
-import me.connor.frcscouting.teams.Team;
+import me.connor.frcscouting.tabs.team_tab.info_view.tabs.info_tab.table_items.CategoryItem;
+import me.connor.frcscouting.tabs.team_tab.Team;
 
 public class DatabaseDataSource
 {
