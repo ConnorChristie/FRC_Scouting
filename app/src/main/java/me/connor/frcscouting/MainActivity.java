@@ -80,7 +80,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 			}
 		});
 
-		getSupportActionBar().setElevation(0);
+		//getSupportActionBar().setElevation(0);
 		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		getSupportActionBar().addTab(getSupportActionBar().newTab().setText("Matches").setTabListener(this));
 		getSupportActionBar().addTab(getSupportActionBar().newTab().setText("Teams").setTabListener(this));
