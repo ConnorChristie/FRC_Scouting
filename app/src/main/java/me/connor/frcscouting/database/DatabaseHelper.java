@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper
 {
 	public static final String DATABASE_NAME = "frc_scouting.db";
-	public static final int DATABASE_VERSION = 7;
+	public static final int DATABASE_VERSION = 10;
 
 	public static final String TABLE_TEAMS = "teams";
 	public static final String COLUMN_TEAM_ID = "id";
@@ -18,8 +18,13 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	public static final String TABLE_CATEGORIES = "categories";
 	public static final String COLUMN_CATEGORY_ID = "id";
 	public static final String COLUMN_CATEGORY_TEAM = "team_id";
-	public static final String COLUMN_CATEGORY_NAME = "category_name";
+	public static final String COLUMN_CATEGORY_LIST_ID = "category_item_id";
 	public static final String COLUMN_CATEGORY_SCORE = "category_score";
+
+	public static final String TABLE_CATEGORIES_LIST = "categories_list";
+	public static final String COLUMN_CATEGORY_ITEM_ID = "id";
+	public static final String COLUMN_CATEGORY_ITEM_NAME = "category_name";
+	public static final String COLUMN_CATEGORY_ITEM_DEFAULT_SCORE = "category_score";
 
 	public DatabaseHelper(Context context)
 	{
@@ -40,8 +45,15 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		createString = "CREATE TABLE " + TABLE_CATEGORIES + "("
 				+ COLUMN_CATEGORY_ID + " integer primary key autoincrement, "
 				+ COLUMN_CATEGORY_TEAM + " integer, "
-				+ COLUMN_CATEGORY_NAME + " varchar(255), "
+				+ COLUMN_CATEGORY_LIST_ID + " integer, "
 				+ COLUMN_CATEGORY_SCORE + " integer);";
+
+		db.execSQL(createString);
+
+		createString = "CREATE TABLE " + TABLE_CATEGORIES_LIST + "("
+				+ COLUMN_CATEGORY_ITEM_ID + " integer primary key autoincrement, "
+				+ COLUMN_CATEGORY_ITEM_NAME + " varchar(255), "
+				+ COLUMN_CATEGORY_ITEM_DEFAULT_SCORE + " integer);";
 
 		db.execSQL(createString);
 	}
@@ -53,6 +65,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		{
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_TEAMS);
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_CATEGORIES);
+			db.execSQL("DROP TABLE IF EXISTS " + TABLE_CATEGORIES_LIST);
+
 			onCreate(db);
 		}
 	}

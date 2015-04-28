@@ -16,22 +16,37 @@ import com.daimajia.swipe.SwipeLayout;
 
 import me.connor.frcscouting.R;
 import me.connor.frcscouting.listadapter.ListItem;
+import me.connor.frcscouting.tabs.team_tab.info_view.tabs.info_tab.TeamInfoFragment;
+import me.connor.frcscouting.tabs.team_tab.info_view.tabs.info_tab.adapter.CategoryListAdapter;
 
 public class CategoryItem extends ListItem implements Parcelable
 {
-	private int id;
+	private int id = -1;
 	private int teamId;
 
+	private int categoryId;
 	private String category;
 	private int score;
 
-	public CategoryItem(int id, int teamId, String category, int score)
+	public CategoryItem(int teamId, int categoryId, String category, int score)
+	{
+		super(R.layout.team_info_list_item);
+
+		this.teamId = teamId;
+
+		this.categoryId = categoryId;
+		this.category = category;
+		this.score = score;
+	}
+
+	public CategoryItem(int id, int teamId, int categoryId, String category, int score)
 	{
 		super(R.layout.team_info_list_item);
 
 		this.id = id;
 		this.teamId = teamId;
 
+		this.categoryId = categoryId;
 		this.category = category;
 		this.score = score;
 	}
@@ -39,8 +54,6 @@ public class CategoryItem extends ListItem implements Parcelable
 	@Override
 	public View populate(View view, LayoutInflater li)
 	{
-		//view = super.populate(view, li);
-
 		EditText score;
 
 		if (view == null)
@@ -56,7 +69,9 @@ public class CategoryItem extends ListItem implements Parcelable
 				@Override
 				public void onClick(View v)
 				{
-					sl.close(true);
+					sl.close();
+
+					((CategoryListAdapter) TeamInfoFragment.getStatsList().getAdapter()).deleteCategory(id);
 				}
 			});
 
@@ -94,6 +109,11 @@ public class CategoryItem extends ListItem implements Parcelable
 		return view;
 	}
 
+	public void setId(int id)
+	{
+		this.id = id;
+	}
+
 	public int getId()
 	{
 		return id;
@@ -107,6 +127,11 @@ public class CategoryItem extends ListItem implements Parcelable
 	public String getCategory()
 	{
 		return category;
+	}
+
+	public int getCategoryId()
+	{
+		return categoryId;
 	}
 
 	public int getScore()

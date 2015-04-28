@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">FRC Scouting</string>
 
+    <string name="search_hint_teams">Search Teams</string>
+    <string name="search_label_teams">Search Teams</string>
 
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
+    <string name="search_hint_matches">Search Matches</string>
+    <string name="search_label_matches">Search Matches</string>
 
     <string name="hello_world">Hello world!</string>
 
@@ -13,4 +14,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_team_info">TeamInfo</string>
+    <string name="title_activity_team_search">TeamSearchActivity</string>
 </resources>

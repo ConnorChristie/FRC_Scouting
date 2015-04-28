@@ -104,6 +104,11 @@ public class HeaderListView extends RelativeLayout {
         mListView.setAdapter(adapter);
     }
 
+	public SectionAdapter getAdapter()
+	{
+		return mAdapter;
+	}
+
     public void setOnScrollListener(AbsListView.OnScrollListener l) {
         mExternalOnScrollListener = l;
     }

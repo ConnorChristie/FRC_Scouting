@@ -1,5 +1,7 @@
 package me.connor.frcscouting;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -8,6 +10,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.SearchView;
 
 import java.util.List;
 
@@ -19,7 +22,7 @@ import me.connor.frcscouting.tabs.team_tab.info_view.tabs.info_tab.table_items.C
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener
 {
-	private DatabaseDataSource db;
+	private static DatabaseDataSource db;
 
 	private List<Team> teams;
 
@@ -36,9 +39,12 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 		db.open();
 
 		/*
+		db.addCategoryItem("Offense", 0);
+		db.addCategoryItem("Defense", 0);
+
 		db.saveCategory(new CategoryItem(1, 1, "Offense", 4));
-		db.saveCategory(new CategoryItem(2, 1, "Defense", 8));
-		db.saveCategory(new CategoryItem(3, 2, "Defense", 2));
+		db.saveCategory(new CategoryItem(1, 2, "Defense", 8));
+		db.saveCategory(new CategoryItem(2, 2, "Defense", 2));
 
 		db.saveTeam(new Team(1, 4095, "Team RoXI", "They have a super tall defense arm."));
 		db.saveTeam(new Team(2, 3648, "Marquette Warriors", "Great maneuverability"));
@@ -104,6 +110,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		getMenuInflater().inflate(R.menu.menu_matches, menu);
+
 		return true;
 	}
 
@@ -136,5 +143,10 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 	public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction)
 	{
 
+	}
+
+	public static DatabaseDataSource getDatabase()
+	{
+		return db;
 	}
 }

@@ -27,9 +27,19 @@ public class Team implements Parcelable
 		this.comments = comments;
 	}
 
+	public void setId(int id)
+	{
+		this.id = id;
+	}
+
 	public int getId()
 	{
 		return id;
+	}
+
+	public void setTeamNumber(int teamNumber)
+	{
+		this.teamNumber = teamNumber;
 	}
 
 	public int getTeamNumber()
@@ -37,9 +47,19 @@ public class Team implements Parcelable
 		return teamNumber;
 	}
 
+	public void setTeamName(String teamName)
+	{
+		this.teamName = teamName;
+	}
+
 	public String getTeamName()
 	{
 		return teamName;
+	}
+
+	public void setComments(String comments)
+	{
+		this.comments = comments;
 	}
 
 	public String getComments()

@@ -1,6 +1,8 @@
 package me.connor.frcscouting.tabs.team_tab.info_view;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -11,19 +13,24 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import me.connor.frcscouting.MainActivity;
 import me.connor.frcscouting.R;
 import me.connor.frcscouting.TabsPagerAdapter;
 import me.connor.frcscouting.listadapter.ListItem;
 import me.connor.frcscouting.tabs.team_tab.Team;
 import me.connor.frcscouting.tabs.team_tab.info_view.tabs.comments_tab.TeamCommentsFragment;
 import me.connor.frcscouting.tabs.team_tab.info_view.tabs.info_tab.TeamInfoFragment;
+import me.connor.frcscouting.tabs.team_tab.info_view.tabs.info_tab.adapter.CategoryListAdapter;
+import me.connor.frcscouting.tabs.team_tab.info_view.tabs.info_tab.table_items.CategoryItem;
 
 public class TeamInfoActivity extends ActionBarActivity implements ActionBar.TabListener
 {
@@ -73,6 +80,58 @@ public class TeamInfoActivity extends ActionBarActivity implements ActionBar.Tab
 			public void onPageScrollStateChanged(int state)
 			{
 
+			}
+		});
+
+		findViewById(R.id.save_team).setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				TeamInfoFragment frag = (TeamInfoFragment) mSectionsPagerAdapter.getItem(0);
+
+				List<ListItem> cats = ((CategoryListAdapter) TeamInfoFragment.getStatsList().getAdapter()).getStats();
+
+				team.setTeamName(frag.teamName.getText().toString());
+				team.setTeamNumber(Integer.parseInt(frag.teamNumber.getText().toString()));
+
+				MainActivity.getDatabase().saveTeam(team);
+
+				for (ListItem item : cats)
+				{
+					if (item instanceof CategoryItem)
+					{
+						MainActivity.getDatabase().saveCategory((CategoryItem) item);
+					}
+				}
+
+				new AlertDialog.Builder(v.getContext())
+						.setTitle("Saved Team")
+						.setMessage("Successfully saved '" + team.getTeamName() + "'")
+						.setNegativeButton("Ok", null)
+						.show();
+			}
+		});
+
+		findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				new AlertDialog.Builder(v.getContext())
+						.setIcon(android.R.drawable.ic_dialog_alert)
+						.setTitle("Cancel")
+						.setMessage("Are you sure you don't want to save before canceling?")
+						.setPositiveButton("Yes, Cancel", new DialogInterface.OnClickListener()
+						{
+							@Override
+							public void onClick(DialogInterface dialog, int which)
+							{
+								finish();
+							}
+						})
+						.setNegativeButton("No, Go Back", null)
+						.show();
 			}
 		});
 
