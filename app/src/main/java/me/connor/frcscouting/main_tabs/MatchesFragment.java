@@ -40,6 +40,7 @@ public class MatchesFragment extends Fragment
 	{
 		final View view = inflater.inflate(R.layout.fragment_matches, container, false);
 
+		/*
 		matches.add(new Match(new MatchHeaderItem(new GregorianCalendar(2015, 4, 11, 16, 45, 0).getTime()), new MatchTeamItem[] {
 				new MatchTeamItem(((MainActivity) getActivity()).getTeam(1), true, "OFFENSE"),
 				new MatchTeamItem(((MainActivity) getActivity()).getTeam(3), true, "OFFENSE"),
@@ -59,6 +60,7 @@ public class MatchesFragment extends Fragment
 				new MatchTeamItem(((MainActivity) getActivity()).getTeam(1), false, "OFFENSE"),
 				new MatchTeamItem(((MainActivity) getActivity()).getTeam(3), false, "DEFENSE"),
 		}));
+		*/
 
 		matchesList = (HeaderListView) view.findViewById(R.id.matchesList);
 		//matchesList.setAdapter(new ListAdapter(view.getContext(), R.layout.match_list_item, matches));

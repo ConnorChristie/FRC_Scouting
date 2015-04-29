@@ -1,5 +1,7 @@
 package me.connor.frcscouting;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -8,6 +10,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.EditText;
 
 import java.util.List;
 
@@ -38,9 +43,9 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 		db.addCategoryItem("Offense", 0);
 		db.addCategoryItem("Defense", 0);
 
-		db.saveCategory(new CategoryItem(1, 1, "Offense", 4));
-		db.saveCategory(new CategoryItem(1, 2, "Defense", 8));
-		db.saveCategory(new CategoryItem(2, 2, "Defense", 2));
+		//db.saveCategory(new CategoryItem(1, 1, "Offense", 4));
+		//db.saveCategory(new CategoryItem(1, 2, "Defense", 8));
+		//db.saveCategory(new CategoryItem(2, 2, "Defense", 2));
 
 		db.saveTeam(new Team(1, 4095, "Team RoXI", "They have a super tall defense arm."));
 		db.saveTeam(new Team(2, 3648, "Marquette Warriors", "Great maneuverability"));
@@ -105,7 +110,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
-		getMenuInflater().inflate(R.menu.menu_matches, menu);
+		getMenuInflater().inflate(R.menu.menu_main, menu);
 
 		return true;
 	}
@@ -115,7 +120,50 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 	{
 		int id = item.getItemId();
 
-		if (id == R.id.action_settings)
+		if (id == R.id.action_add_team)
+		{
+			View promptView = getLayoutInflater().inflate(R.layout.dialog_add_team, null);
+
+			AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+			dialogBuilder.setView(promptView);
+
+			final EditText teamName = (EditText) promptView.findViewById(R.id.teamName);
+			final EditText teamNumber = (EditText) promptView.findViewById(R.id.teamNumber);
+
+			dialogBuilder.setTitle("Add Team").setCancelable(true).setPositiveButton("Add", new DialogInterface.OnClickListener()
+			{
+				public void onClick(DialogInterface dialog, int id)
+				{
+					//Add team to database and add categories
+				}
+			}).setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+			{
+				public void onClick(DialogInterface dialog, int id)
+				{
+					dialog.cancel();
+				}
+			});
+
+			AlertDialog alertDialog = dialogBuilder.create();
+
+			alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener()
+			{
+				@Override
+				public void onCancel(DialogInterface dialog)
+				{
+					teamName.clearFocus();
+					teamNumber.clearFocus();
+				}
+			});
+
+			alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+			alertDialog.show();
+
+			return true;
+		} else if (id == R.id.action_add_match)
+		{
+			return true;
+		} else if (id == R.id.action_settings)
 		{
 			return true;
 		}

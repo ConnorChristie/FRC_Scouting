@@ -3,10 +3,10 @@ package me.connor.frcscouting.tabs.team_tab.info_view.tabs.info_tab.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 
@@ -67,7 +67,7 @@ public class CategoryListAdapter extends SectionAdapter
 		if (row == numberOfRows(0) - 1)
 		{
 			LayoutInflater li = LayoutInflater.from(view.getContext());
-			View promptView = li.inflate(R.layout.add_category_prompt, null);
+			View promptView = li.inflate(R.layout.dialog_add_category, null);
 
 			AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(view.getContext());
 			dialogBuilder.setView(promptView);
@@ -75,7 +75,7 @@ public class CategoryListAdapter extends SectionAdapter
 			final EditText categoryName = (EditText) promptView.findViewById(R.id.categoryName);
 			final EditText categoryScore = (EditText) promptView.findViewById(R.id.categoryScore);
 
-			dialogBuilder.setCancelable(true).setPositiveButton("Add", new DialogInterface.OnClickListener()
+			dialogBuilder.setTitle("Add Category").setCancelable(true).setPositiveButton("Add", new DialogInterface.OnClickListener()
 			{
 				public void onClick(DialogInterface dialog, int id)
 				{
@@ -119,9 +119,11 @@ public class CategoryListAdapter extends SectionAdapter
 				public void onCancel(DialogInterface dialog)
 				{
 					categoryName.clearFocus();
+					categoryScore.clearFocus();
 				}
 			});
 
+			alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 			alertDialog.show();
 		}
 	}
