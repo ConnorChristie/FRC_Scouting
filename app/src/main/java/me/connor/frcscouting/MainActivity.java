@@ -1,7 +1,5 @@
 package me.connor.frcscouting;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -10,7 +8,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.SearchView;
 
 import java.util.List;
 
@@ -18,13 +15,12 @@ import me.connor.frcscouting.database.DatabaseDataSource;
 import me.connor.frcscouting.main_tabs.MatchesFragment;
 import me.connor.frcscouting.main_tabs.TeamsFragment;
 import me.connor.frcscouting.tabs.team_tab.Team;
-import me.connor.frcscouting.tabs.team_tab.info_view.tabs.info_tab.table_items.CategoryItem;
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener
 {
 	private static DatabaseDataSource db;
 
-	private List<Team> teams;
+	private static List<Team> teams;
 
 	private TabsPagerAdapter mSectionsPagerAdapter;
 	private ViewPager mViewPager;
@@ -88,7 +84,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 		getSupportActionBar().addTab(getSupportActionBar().newTab().setText("Teams").setTabListener(this));
 	}
 
-	public List<Team> getTeams()
+	public static List<Team> getTeams()
 	{
 		return teams;
 	}

@@ -75,29 +75,41 @@ public class CategoryListAdapter extends SectionAdapter
 			final EditText categoryName = (EditText) promptView.findViewById(R.id.categoryName);
 			final EditText categoryScore = (EditText) promptView.findViewById(R.id.categoryScore);
 
-			dialogBuilder.setCancelable(true)
-					.setPositiveButton("Add", new DialogInterface.OnClickListener()
+			dialogBuilder.setCancelable(true).setPositiveButton("Add", new DialogInterface.OnClickListener()
+			{
+				public void onClick(DialogInterface dialog, int id)
+				{
+					List<ListItem> newStats = new ArrayList<>();
+
+					newStats.addAll(stats);
+					newStats.add(stats.size() - 1, new CategoryItem(team.getId(), 0, categoryName.getText().toString(), Integer.parseInt(categoryScore.getText().toString())));
+
+					CategoryListAdapter newAdapter = new CategoryListAdapter(statsList, newStats, view, team);
+
+					statsList.setAdapter(newAdapter);
+					newAdapter.notifyDataSetChanged();
+
+					//Get all other teams and add category
+
+					List<Team> teams = MainActivity.getTeams();
+
+					for (Team t : teams)
 					{
-						public void onClick(DialogInterface dialog, int id)
+						CategoryItem cat = t.getCategory(categoryName.getText().toString());
+
+						if (cat == null)
 						{
-							List<ListItem> newStats = new ArrayList<>();
-
-							newStats.addAll(stats);
-							newStats.add(stats.size() - 1, new CategoryItem(team.getId(), 0, categoryName.getText().toString(), Integer.parseInt(categoryScore.getText().toString())));
-
-							CategoryListAdapter newAdapter = new CategoryListAdapter(statsList, newStats, view, team);
-
-							statsList.setAdapter(newAdapter);
-							newAdapter.notifyDataSetChanged();
+							t.addCategory(new CategoryItem(t.getId(), 0, categoryName.getText().toString(), Integer.parseInt(categoryScore.getText().toString())));
 						}
-					})
-					.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
-					{
-						public void onClick(DialogInterface dialog, int id)
-						{
-							dialog.cancel();
-						}
-					});
+					}
+				}
+			}).setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+			{
+				public void onClick(DialogInterface dialog, int id)
+				{
+					dialog.cancel();
+				}
+			});
 
 			AlertDialog alertDialog = dialogBuilder.create();
 

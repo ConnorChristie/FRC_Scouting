@@ -19,13 +19,11 @@ import com.applidium.headerlistview.SectionAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.connor.frcscouting.MainActivity;
 import me.connor.frcscouting.R;
 import me.connor.frcscouting.listadapter.ListItem;
 import me.connor.frcscouting.tabs.team_tab.info_view.TeamInfoActivity;
 import me.connor.frcscouting.tabs.team_tab.info_view.tabs.info_tab.adapter.CategoryListAdapter;
 import me.connor.frcscouting.tabs.team_tab.info_view.tabs.info_tab.table_items.CategoryAddItem;
-import me.connor.frcscouting.tabs.team_tab.info_view.tabs.info_tab.table_items.CategoryItem;
 
 public class TeamInfoFragment extends Fragment
 {
