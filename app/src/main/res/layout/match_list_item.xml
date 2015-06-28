@@ -2,88 +2,84 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="65dp"
     android:focusable="false"
-    android:focusableInTouchMode="false">
+    android:focusableInTouchMode="false"
+    android:background="#1946ceff">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:focusable="false"
         android:focusableInTouchMode="false">
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="right"
             android:focusable="false"
             android:focusableInTouchMode="false">
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/match_item_title"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="right"
+                android:paddingTop="5dp"
+                android:paddingLeft="17dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Title"
+                android:textSize="18sp"
                 android:focusable="false"
-                android:focusableInTouchMode="false">
-
-                <TextView
-                    android:id="@+id/match_item_title"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="5dp"
-                    android:paddingLeft="15dp"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Title"
-                    android:textSize="18sp"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"/>
-
-                <TextView
-                    android:id="@+id/match_item_subtitle"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="15dp"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Title"
-                    android:textSize="13sp"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"/>
-
-            </LinearLayout>
+                android:focusableInTouchMode="false"
+                android:layout_weight="1"/>
 
             <TextView
-                android:id="@+id/match_item_status"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:id="@+id/match_item_subtitle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingLeft="17dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Average"
-                android:textSize="18sp"
-                android:autoText="false"
-                android:layout_weight="2"
-                android:gravity="center_vertical|right"
-                android:paddingRight="20dp"
-                android:textColor="#ffd7a900"
+                android:text="Title"
+                android:textSize="13sp"
                 android:focusable="false"
-                android:focusableInTouchMode="false"/>
+                android:focusableInTouchMode="false"
+                android:layout_weight="1"/>
+
         </LinearLayout>
 
         <TextView
+            android:id="@+id/match_item_status"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="DEFENSE"
-            android:id="@+id/match_item_side"
-            android:maxLines="1"
-            android:textSize="40sp"
-            android:textColor="#3ca5a5a5"
-            android:paddingLeft="90dp"
-            android:paddingRight="90dp"
+            android:text="Average"
+            android:textSize="18sp"
+            android:autoText="false"
+            android:layout_weight="2"
+            android:gravity="center_vertical|right"
+            android:paddingRight="20dp"
+            android:textColor="#ffd7a900"
             android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:gravity="center"/>
-    </RelativeLayout>
+            android:focusableInTouchMode="false"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="DEFENSE"
+        android:id="@+id/match_item_side"
+        android:maxLines="1"
+        android:textSize="40sp"
+        android:textColor="#3ca5a5a5"
+        android:paddingLeft="90dp"
+        android:paddingRight="90dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="center"/>
 
 </RelativeLayout>

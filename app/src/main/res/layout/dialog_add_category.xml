@@ -22,6 +22,6 @@
         android:id="@+id/categoryScore"
         android:backgroundTint="@android:color/holo_blue_dark"
         android:theme="@android:style/Theme.Holo.Light"
-        android:hint="Score"/>
+        android:hint="Default Score"/>
 
 </LinearLayout>

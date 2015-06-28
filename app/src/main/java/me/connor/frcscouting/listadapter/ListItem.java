@@ -7,8 +7,6 @@ public abstract class ListItem
 {
 	public int layout;
 
-	public abstract boolean isHeader();
-
 	public ListItem(int layout)
 	{
 		this.layout = layout;
@@ -28,4 +26,7 @@ public abstract class ListItem
 	{
 		return layout;
 	}
+
+    public abstract boolean isHeader();
+    public abstract String toString();
 }

@@ -2,11 +2,9 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="me.connor.frcscouting.main_tabs.TeamsFragment"
+             tools:context="me.connor.frcscouting.tabs.TeamsFragment"
              android:focusable="false"
              android:focusableInTouchMode="false">
-
-    <!-- TODO: Update blank fragment layout -->
 
     <ListView
         android:layout_width="match_parent"
@@ -15,5 +13,7 @@
         android:clickable="false"
         android:longClickable="false"
         android:focusable="false"
-        android:focusableInTouchMode="false"/>
+        android:focusableInTouchMode="false"
+        android:divider="@drawable/list_divider"
+        android:dividerHeight="0.8dp" />
 </FrameLayout>
