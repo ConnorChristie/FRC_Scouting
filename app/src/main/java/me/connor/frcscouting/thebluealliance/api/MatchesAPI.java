@@ -55,13 +55,12 @@ public class MatchesAPI extends AsyncTask<Void, Match, Integer>
     {
         try
         {
-            HttpURLConnection con = (HttpURLConnection) new URL(String.format(Links.matchesApi, Calendar.getInstance().get(Calendar.YEAR), eventKey)).openConnection();
+            HttpURLConnection con = (HttpURLConnection) new URL(String.format(Links.MATCHES_API, eventKey)).openConnection();
             con.setRequestProperty("X-TBA-App-Id", "frc4095:scouting-system:1.0");
 
-            if (con.getResponseCode() == 404)
-            {
-                return 404;
-            } else
+            int resp = con.getResponseCode();
+
+            if (resp == HttpURLConnection.HTTP_OK)
             {
                 JSONArray json = new JSONArray(IOUtils.toString(con.getInputStream()));
 
@@ -118,9 +117,12 @@ public class MatchesAPI extends AsyncTask<Void, Match, Integer>
                             }
                         }
 
-                        publishProgress(activity.getDatabase().addNewMatch(new Match(1, matchObj.getString("key"), new MatchHeaderItem(matchTitle, matchObj.getInt("match_number"), matchTime), teams)));
+                        publishProgress(activity.getDatabase().add(new Match(1, matchObj.getString("key"), new MatchHeaderItem(matchTitle, matchObj.getInt("match_number"), matchTime), teams)));
                     }
                 }
+            } else
+            {
+                return resp;
             }
         } catch (JSONException e)
         {
@@ -166,7 +168,12 @@ public class MatchesAPI extends AsyncTask<Void, Match, Integer>
     @Override
     protected void onPostExecute(Integer result)
     {
-        if (result == 404)
+        if (result != HttpURLConnection.HTTP_OK)
+        {
+            new TeamsAPI(matches).execute();
+
+            Toast.makeText(activity, "Downloading team data...", Toast.LENGTH_LONG).show();
+        } else
         {
             final AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
 
@@ -182,11 +189,6 @@ public class MatchesAPI extends AsyncTask<Void, Match, Integer>
             });
 
             alertDialog.show();
-        } else
-        {
-            new TeamsAPI(matches).execute();
-
-            Toast.makeText(activity, "Downloading team data...", Toast.LENGTH_LONG).show();
         }
     }
 }

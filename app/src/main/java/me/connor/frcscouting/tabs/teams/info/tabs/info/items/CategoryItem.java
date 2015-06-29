@@ -1,8 +1,10 @@
 package me.connor.frcscouting.tabs.teams.info.tabs.info.items;
 
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.KeyEvent;
@@ -17,11 +19,15 @@ import android.widget.TextView;
 import com.daimajia.swipe.SwipeLayout;
 
 import me.connor.frcscouting.R;
+import me.connor.frcscouting.database.models.Categories;
+import me.connor.frcscouting.database.models.Teams;
+import me.connor.frcscouting.interfaces.Column;
+import me.connor.frcscouting.interfaces.Item;
 import me.connor.frcscouting.listadapter.ListItem;
 import me.connor.frcscouting.tabs.teams.info.tabs.info.TeamInfoFragment;
 import me.connor.frcscouting.tabs.teams.info.tabs.info.adapter.CategoryListAdapter;
 
-public class CategoryItem extends ListItem implements Parcelable
+public class CategoryItem extends ListItem implements Parcelable, Item
 {
 	private View view;
 
@@ -215,4 +221,23 @@ public class CategoryItem extends ListItem implements Parcelable
 		category = source.readString();
 		score = source.readInt();
 	}
+
+    /*
+    Database functions.
+     */
+
+    public Column[] getDataColumns()
+    {
+        return Categories.Columns.values();
+    }
+
+    public void updateDb(SQLiteDatabase db, ContentValues values)
+    {
+        db.update(Categories.TABLE, values, Categories.Columns.CATEGORY_ID + " = ?", new String[]{"" + getId()});
+    }
+
+    public int insertDb(SQLiteDatabase db, ContentValues values)
+    {
+        return (int) db.insert(Categories.TABLE, null, values);
+    }
 }

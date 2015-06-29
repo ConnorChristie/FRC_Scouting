@@ -48,6 +48,7 @@ import me.connor.frcscouting.tabs.MatchesFragment;
 import me.connor.frcscouting.tabs.TeamsFragment;
 import me.connor.frcscouting.tabs.teams.Team;
 import me.connor.frcscouting.thebluealliance.Links;
+import me.connor.frcscouting.thebluealliance.api.EventsApi;
 import me.connor.frcscouting.thebluealliance.api.MatchesAPI;
 
 public class MainActivity extends AppCompatActivity implements ActionBar.TabListener
@@ -79,7 +80,8 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
         activity = this;
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        new EventsFetcher().execute();
+        //new EventsFetcher().execute();
+        new EventsApi().execute();
 
         //Log.d("", "Delete Database: " + deleteDatabase("frc_scouting.db"));
 

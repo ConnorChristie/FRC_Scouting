@@ -22,6 +22,7 @@ import me.connor.frcscouting.R;
 import me.connor.frcscouting.listadapter.ListItem;
 import me.connor.frcscouting.tabs.teams.Team;
 import me.connor.frcscouting.tabs.teams.info.tabs.info.items.CategoryItem;
+import me.connor.frcscouting.tabs.teams.info.tabs.info.items.CategoryListItem;
 
 public class CategoryListAdapter extends SectionAdapter
 {
@@ -103,8 +104,8 @@ public class CategoryListAdapter extends SectionAdapter
 				{
 					List<ListItem> newStats = new ArrayList<>();
 
-					int catId = activity.getDatabase().addCategoryItem(categoryName.getText().toString(), Integer.parseInt(categoryScore.getText().toString()));
-					CategoryItem catItem = activity.getDatabase().addCategory(new CategoryItem(0, team.getId(), catId, categoryName.getText().toString(), Integer.parseInt(categoryScore.getText().toString())));
+					int catId = activity.getDatabase().add(new CategoryListItem(categoryName.getText().toString(), Integer.parseInt(categoryScore.getText().toString()))).getId();
+					CategoryItem catItem = activity.getDatabase().add(new CategoryItem(0, team.getId(), catId, categoryName.getText().toString(), Integer.parseInt(categoryScore.getText().toString())));
 
 					newStats.addAll(stats);
 					newStats.add(stats.size() - 1, catItem);
@@ -124,7 +125,7 @@ public class CategoryListAdapter extends SectionAdapter
 
 						if (team.getId() != t.getId() && cat == null)
 						{
-							catItem = activity.getDatabase().addCategory(new CategoryItem(0, t.getId(), catId, categoryName.getText().toString(), Integer.parseInt(categoryScore.getText().toString())));
+							catItem = activity.getDatabase().add(new CategoryItem(0, t.getId(), catId, categoryName.getText().toString(), Integer.parseInt(categoryScore.getText().toString())));
 
 							t.addCategory(catItem);
 						}

@@ -1,15 +1,20 @@
 package me.connor.frcscouting.tabs.teams;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import me.connor.frcscouting.database.models.Teams;
+import me.connor.frcscouting.interfaces.Column;
+import me.connor.frcscouting.interfaces.Item;
 import me.connor.frcscouting.tabs.teams.attributes.TeamStatus;
 import me.connor.frcscouting.tabs.teams.info.tabs.info.items.CategoryItem;
 
-public class Team implements Parcelable
+public class Team implements Parcelable, Item
 {
 	private int id;
 	private int teamNumber;
@@ -213,4 +218,23 @@ public class Team implements Parcelable
 
 		categories = cats;
 	}
+
+    /*
+    Database functions.
+     */
+
+    public Column[] getDataColumns()
+    {
+        return Teams.Columns.values();
+    }
+
+    public void updateDb(SQLiteDatabase db, ContentValues values)
+    {
+        db.update(Teams.TABLE, values, Teams.Columns.TEAM_ID + " = ?", new String[]{"" + getId()});
+    }
+
+    public int insertDb(SQLiteDatabase db, ContentValues values)
+    {
+        return (int) db.insert(Teams.TABLE, null, values);
+    }
 }

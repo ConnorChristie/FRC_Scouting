@@ -115,7 +115,7 @@ public class FilterSectionAdapter extends SectionAdapter implements Filterable
 
         Toast.makeText(view.getContext(), "Changed side to " + item.getSide(), Toast.LENGTH_SHORT).show();
 
-        MainActivity.getInstance().getDatabase().saveMatch(matches.get(section));
+        MainActivity.getInstance().getDatabase().save(matches.get(section));
 
         return true;
     }

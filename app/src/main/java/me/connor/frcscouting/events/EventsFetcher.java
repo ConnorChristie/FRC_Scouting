@@ -1,7 +1,6 @@
 package me.connor.frcscouting.events;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
@@ -20,7 +19,7 @@ public class EventsFetcher extends AsyncTask<Void, Event, Void>
     {
         try
         {
-            for (CSVRecord record : CSVFormat.EXCEL.withHeader().parse(new BufferedReader(new InputStreamReader(new URL(Links.eventsCsv).openStream()))))
+            for (CSVRecord record : CSVFormat.EXCEL.withHeader().parse(new BufferedReader(new InputStreamReader(new URL(Links.EVENTS_CSV).openStream()))))
             {
                 publishProgress(new Event(record.get("event_name"), record.get("event_code")));
             }

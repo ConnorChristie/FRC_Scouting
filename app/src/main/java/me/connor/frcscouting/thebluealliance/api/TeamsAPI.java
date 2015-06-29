@@ -11,8 +11,6 @@ import java.net.URL;
 import java.util.List;
 
 import me.connor.frcscouting.MainActivity;
-import me.connor.frcscouting.tabs.MatchesFragment;
-import me.connor.frcscouting.tabs.TeamsFragment;
 import me.connor.frcscouting.tabs.matches.Match;
 import me.connor.frcscouting.tabs.matches.items.MatchTeamItem;
 import me.connor.frcscouting.tabs.teams.Team;
@@ -44,7 +42,7 @@ public class TeamsAPI extends AsyncTask<Void, Team, Void>
                 {
                     try
                     {
-                        HttpURLConnection con = (HttpURLConnection) new URL(String.format(Links.teamsApi, "frc" + team.getTeamNumber())).openConnection();
+                        HttpURLConnection con = (HttpURLConnection) new URL(String.format(Links.TEAMS_API, "frc" + team.getTeamNumber())).openConnection();
                         con.setRequestProperty("X-TBA-App-Id", "frc4095:scouting-system:1.0");
 
                         if (con.getResponseCode() == 404)

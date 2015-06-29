@@ -111,14 +111,14 @@ public class TeamInfoActivity extends ActionBarActivity implements ActionBar.Tab
 				setTitle(team.getTeamName());
 				getSupportActionBar().setSubtitle(team.getTeamNumber() + "");
 
-                activity.getDatabase().saveTeam(team);
+                activity.getDatabase().save(team);
 				List<CategoryItem> cats = new ArrayList<>();
 
 				for (ListItem item : ((CategoryListAdapter) TeamInfoFragment.getStatsList().getAdapter()).getUpdatedStats())
 				{
 					if (item instanceof CategoryItem)
 					{
-                        activity.getDatabase().saveCategory((CategoryItem) item);
+                        activity.getDatabase().save((CategoryItem) item);
 
 						cats.add((CategoryItem) item);
 					}

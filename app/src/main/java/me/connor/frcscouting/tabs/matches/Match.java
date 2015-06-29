@@ -1,17 +1,21 @@
 package me.connor.frcscouting.tabs.matches;
 
-import android.util.Log;
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import me.connor.frcscouting.database.models.Matches;
+import me.connor.frcscouting.interfaces.Column;
+import me.connor.frcscouting.interfaces.Item;
 import me.connor.frcscouting.listadapter.ListItem;
 import me.connor.frcscouting.tabs.matches.items.MatchHeaderItem;
 import me.connor.frcscouting.tabs.matches.items.MatchTeamItem;
 import me.connor.frcscouting.tabs.teams.Team;
 
-public class Match implements Comparable<Match>
+public class Match implements Comparable<Match>, Item
 {
     private int id;
 
@@ -127,5 +131,24 @@ public class Match implements Comparable<Match>
         {
             matchTeams.get(team.getTeamNumber()).setTeam(team);
         }
+    }
+
+    /*
+    Database functions.
+     */
+
+    public Column[] getDataColumns()
+    {
+        return Matches.Columns.values();
+    }
+
+    public void updateDb(SQLiteDatabase db, ContentValues values)
+    {
+        db.update(Matches.TABLE, values, Matches.Columns.MATCH_ID + " = ?", new String[] { "" + getId() });
+    }
+
+    public int insertDb(SQLiteDatabase db, ContentValues values)
+    {
+        return (int) db.insert(Matches.TABLE, null, values);
     }
 }
