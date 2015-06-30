@@ -1,6 +1,6 @@
 package me.connor.frcscouting.database;
 
-public interface Model
+public interface ModelB
 {
     String getTable();
 

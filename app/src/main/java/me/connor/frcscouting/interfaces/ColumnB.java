@@ -1,6 +1,6 @@
 package me.connor.frcscouting.interfaces;
 
-public interface Column<T>
+public interface ColumnB<T>
 {
     String getValue(T i);
 

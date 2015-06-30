@@ -11,13 +11,18 @@
 
     <item android:id="@+id/action_add_team"
           android:title="Add Team"
-          android:orderInCategory="98"
+          android:orderInCategory="97"
           app:showAsAction="never"/>
 
     <item android:id="@+id/action_sync_matches"
         android:title="Sync Matches"
-        android:orderInCategory="99"
+        android:orderInCategory="98"
         app:showAsAction="never"/>
+
+    <item android:id="@+id/action_change_event"
+          android:title="Change Event"
+          android:orderInCategory="99"
+          app:showAsAction="never"/>
 
     <item android:id="@+id/action_settings"
           android:title="@string/action_settings"

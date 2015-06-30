@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
 import me.connor.frcscouting.database.models.CategoriesList;
-import me.connor.frcscouting.interfaces.Column;
+import me.connor.frcscouting.interfaces.ColumnB;
 import me.connor.frcscouting.interfaces.Item;
 
 public class CategoryListItem implements Item
@@ -44,7 +44,7 @@ public class CategoryListItem implements Item
     Database functions.
      */
 
-    public Column[] getDataColumns()
+    public ColumnB[] getDataColumns()
     {
         return CategoriesList.Columns.values();
     }

@@ -1,18 +1,13 @@
 package me.connor.frcscouting.listadapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import me.connor.frcscouting.adapters.FilterArrayAdapter;
-import me.connor.frcscouting.tabs.matches.items.MatchTeamItem;
-import me.connor.frcscouting.tabs.teams.items.TeamItem;
 
 public class ListAdapter extends FilterArrayAdapter<ListItem>
 {

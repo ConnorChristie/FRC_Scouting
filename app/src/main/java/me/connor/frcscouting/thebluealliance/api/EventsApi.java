@@ -1,7 +1,6 @@
 package me.connor.frcscouting.thebluealliance.api;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -41,6 +40,8 @@ public class EventsApi extends AsyncTask<Void, Event, Void>
                     publishProgress(new Event(eventObj.getString("name"), eventObj.getString("key")));
                 }
             }
+
+            con.disconnect();
         } catch (MalformedURLException e)
         {
             e.printStackTrace();

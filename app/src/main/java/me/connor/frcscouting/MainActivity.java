@@ -5,7 +5,6 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -24,30 +23,28 @@ import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Spinner;
 
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVRecord;
+import com.activeandroid.ActiveAndroid;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import io.karim.MaterialTabs;
 import me.connor.frcscouting.adapters.FilterSectionAdapter;
 import me.connor.frcscouting.adapters.TabsPagerAdapter;
 import me.connor.frcscouting.database.DatabaseDataSource;
+import me.connor.frcscouting.database.DatabaseManager;
+import me.connor.frcscouting.database.models.Match;
 import me.connor.frcscouting.events.Event;
-import me.connor.frcscouting.events.EventsFetcher;
 import me.connor.frcscouting.listadapter.ListAdapter;
 import me.connor.frcscouting.notifications.android.NotificationManager;
 import me.connor.frcscouting.tabs.MatchesFragment;
 import me.connor.frcscouting.tabs.TeamsFragment;
 import me.connor.frcscouting.tabs.teams.Team;
-import me.connor.frcscouting.thebluealliance.Links;
 import me.connor.frcscouting.thebluealliance.api.EventsApi;
 import me.connor.frcscouting.thebluealliance.api.MatchesAPI;
 
@@ -64,26 +61,23 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
     private DatabaseDataSource db;
     private NotificationManager notificationManager;
 
+    private DatabaseManager databaseManager;
     private SharedPreferences sharedPreferences;
 
-    /**
-     * Main startup method for the app, creates all helpers.
-     *
-     * @param savedInstanceState
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ActiveAndroid.initialize(this);
 
         activity = this;
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        //new EventsFetcher().execute();
         new EventsApi().execute();
 
         //Log.d("", "Delete Database: " + deleteDatabase("frc_scouting.db"));
+        //sharedPreferences.edit().clear().apply();
 
         db = new DatabaseDataSource(this);
         db.open();
@@ -304,13 +298,27 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
                 {
                     teamNumber.clearFocus();
 
-                    String eventKey = ((Event) eventPicker.getSelectedItem()).getKey();
-                    int teamNum = Integer.parseInt(teamNumber.getText().toString());
+                    try
+                    {
+                        Event event = (Event) eventPicker.getSelectedItem();
+                        int teamNum = Integer.parseInt(teamNumber.getText().toString());
 
-                    sharedPreferences.edit().putString("event_key", eventKey).apply();
-                    sharedPreferences.edit().putInt("team_number", teamNum).apply();
+                        Set<String> events = sharedPreferences.getStringSet("events", new TreeSet<String>());
+                        events.add(event.getName() + "~" + event.getKey());
 
-                    new MatchesAPI(MainActivity.this, eventKey, teamNum).execute();
+                        sharedPreferences.edit().putStringSet("events", events).apply();
+                        sharedPreferences.edit().putString("event_key", event.getKey()).apply();
+                        sharedPreferences.edit().putInt("team_number", teamNum).apply();
+
+                        new MatchesAPI(MainActivity.this, event.getKey(), teamNum).execute();
+                    } catch (NumberFormatException e)
+                    {
+                        new AlertDialog.Builder(MainActivity.this)
+                                .setTitle("Error")
+                                .setMessage("Invalid team number entered, make sure it is a number.")
+                                .setNegativeButton("Ok", null)
+                                .show();
+                    }
                 }
             }).setNegativeButton("Cancel", new DialogInterface.OnClickListener()
             {
@@ -330,6 +338,49 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
             dialogBuilder.create().show();
 
             return true;
+        } else if (id == R.id.action_change_event)
+        {
+            View promptView = getLayoutInflater().inflate(R.layout.dialog_change_event, null);
+
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+            dialogBuilder.setView(promptView);
+
+            final Spinner eventPicker = (Spinner) promptView.findViewById(R.id.eventPicker);
+
+            Set<String> eventsSet = sharedPreferences.getStringSet("events", new TreeSet<String>());
+            List<Event> events = new ArrayList<>();
+
+            for (String eventData : eventsSet)
+            {
+                String[] ev = eventData.split("~");
+
+                events.add(new Event(ev[0], ev[1]));
+            }
+
+            Collections.sort(events);
+            ArrayAdapter<Event> eventData = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, events);
+
+            eventPicker.setAdapter(eventData);
+
+            dialogBuilder.setTitle("Change Event").setCancelable(true).setPositiveButton("Change", new DialogInterface.OnClickListener()
+            {
+                public void onClick(DialogInterface dialog, int id)
+                {
+                    String eventKey = ((Event) eventPicker.getSelectedItem()).getKey();
+
+                    sharedPreferences.edit().putString("event_key", eventKey).apply();
+
+                    //getPagerAdapter().getMatchesFragment().updateEventKey(eventKey);
+                }
+            }).setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+            {
+                public void onClick(DialogInterface dialog, int id)
+                {
+                    dialog.cancel();
+                }
+            });
+
+            dialogBuilder.create().show();
         } else if (id == R.id.action_settings)
         {
             return true;

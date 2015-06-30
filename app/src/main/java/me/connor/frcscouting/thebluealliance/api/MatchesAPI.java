@@ -17,7 +17,6 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -25,22 +24,22 @@ import java.util.List;
 import java.util.Map;
 
 import me.connor.frcscouting.MainActivity;
+import me.connor.frcscouting.tabs.matches.MatchB;
 import me.connor.frcscouting.tabs.matches.attributes.Alliance;
-import me.connor.frcscouting.tabs.matches.Match;
 import me.connor.frcscouting.tabs.matches.attributes.Side;
 import me.connor.frcscouting.tabs.matches.items.MatchHeaderItem;
 import me.connor.frcscouting.tabs.matches.items.MatchTeamItem;
 import me.connor.frcscouting.tabs.teams.Team;
 import me.connor.frcscouting.thebluealliance.Links;
 
-public class MatchesAPI extends AsyncTask<Void, Match, Integer>
+public class MatchesAPI extends AsyncTask<Void, MatchB, Integer>
 {
     private MainActivity activity;
 
     private String eventKey;
     private int team;
 
-    private List<Match> matches = new ArrayList<>();
+    private List<MatchB> matches = new ArrayList<>();
 
     public MatchesAPI(MainActivity activity, String eventKey, int team)
     {
@@ -117,11 +116,15 @@ public class MatchesAPI extends AsyncTask<Void, Match, Integer>
                             }
                         }
 
-                        publishProgress(activity.getDatabase().add(new Match(1, matchObj.getString("key"), new MatchHeaderItem(matchTitle, matchObj.getInt("match_number"), matchTime), teams)));
+                        publishProgress(activity.getDatabase().add(new MatchB(1, matchObj.getString("key"), matchObj.getString("event_key"), new MatchHeaderItem(matchTitle, matchObj.getInt("match_number"), matchTime), teams)));
                     }
                 }
+
+                con.disconnect();
             } else
             {
+                con.disconnect();
+
                 return resp;
             }
         } catch (JSONException e)
@@ -157,7 +160,7 @@ public class MatchesAPI extends AsyncTask<Void, Match, Integer>
     }
 
     @Override
-    protected void onProgressUpdate(Match... progress)
+    protected void onProgressUpdate(MatchB... progress)
     {
         matches.add(progress[0]);
         Collections.sort(matches);

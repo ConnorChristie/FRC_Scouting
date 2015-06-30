@@ -7,28 +7,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import me.connor.frcscouting.database.models.Matches;
-import me.connor.frcscouting.interfaces.Column;
+import me.connor.frcscouting.database.models.Match;
+import me.connor.frcscouting.interfaces.ColumnB;
 import me.connor.frcscouting.interfaces.Item;
 import me.connor.frcscouting.listadapter.ListItem;
 import me.connor.frcscouting.tabs.matches.items.MatchHeaderItem;
 import me.connor.frcscouting.tabs.matches.items.MatchTeamItem;
 import me.connor.frcscouting.tabs.teams.Team;
 
-public class Match implements Comparable<Match>, Item
+public class MatchB implements Comparable<MatchB>, Item
 {
     private int id;
 
     private String matchKey;
+    private String eventKey;
+
     private boolean completed;
 
 	private MatchHeaderItem header;
 	private Map<Integer, MatchTeamItem> matchTeams;
 
-	public Match(int id, String matchKey, MatchHeaderItem header, Map<Integer, MatchTeamItem> teams)
+	public MatchB(int id, String matchKey, String eventKey, MatchHeaderItem header, Map<Integer, MatchTeamItem> teams)
 	{
         this.id = id;
         this.matchKey = matchKey;
+        this.eventKey = eventKey;
 
 		this.header = header;
 		this.matchTeams = teams;
@@ -59,6 +62,11 @@ public class Match implements Comparable<Match>, Item
         return matchKey;
     }
 
+    public String getEventKey()
+    {
+        return eventKey;
+    }
+
     public boolean isCompleted()
     {
         return completed;
@@ -78,7 +86,7 @@ public class Match implements Comparable<Match>, Item
     }
 
     @Override
-    public int compareTo(Match another)
+    public int compareTo(MatchB another)
     {
         if (!getHeader().getMatchType().equals(another.getHeader().getMatchType()))
         {
@@ -137,18 +145,18 @@ public class Match implements Comparable<Match>, Item
     Database functions.
      */
 
-    public Column[] getDataColumns()
+    public ColumnB[] getDataColumns()
     {
-        return Matches.Columns.values();
+        return Match.Columns.values();
     }
 
     public void updateDb(SQLiteDatabase db, ContentValues values)
     {
-        db.update(Matches.TABLE, values, Matches.Columns.MATCH_ID + " = ?", new String[] { "" + getId() });
+        db.update(Match.TABLE, values, Match.Columns.MATCH_ID + " = ?", new String[] { "" + getId() });
     }
 
     public int insertDb(SQLiteDatabase db, ContentValues values)
     {
-        return (int) db.insert(Matches.TABLE, null, values);
+        return (int) db.insert(Match.TABLE, null, values);
     }
 }

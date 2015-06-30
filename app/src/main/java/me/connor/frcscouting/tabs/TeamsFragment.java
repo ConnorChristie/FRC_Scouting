@@ -18,8 +18,8 @@ import me.connor.frcscouting.MainActivity;
 import me.connor.frcscouting.R;
 import me.connor.frcscouting.listadapter.ListAdapter;
 import me.connor.frcscouting.listadapter.ListItem;
-import me.connor.frcscouting.tabs.teams.info.TeamInfoActivity;
 import me.connor.frcscouting.tabs.teams.Team;
+import me.connor.frcscouting.tabs.teams.info.TeamInfoActivity;
 import me.connor.frcscouting.tabs.teams.items.TeamItem;
 
 public class TeamsFragment extends Fragment

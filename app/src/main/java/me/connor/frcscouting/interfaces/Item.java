@@ -9,7 +9,7 @@ public interface Item
 
     void setId(int id);
 
-    Column[] getDataColumns();
+    ColumnB[] getDataColumns();
 
     void updateDb(SQLiteDatabase db, ContentValues values);
 

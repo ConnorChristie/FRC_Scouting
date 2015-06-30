@@ -11,7 +11,7 @@ import java.net.URL;
 import java.util.List;
 
 import me.connor.frcscouting.MainActivity;
-import me.connor.frcscouting.tabs.matches.Match;
+import me.connor.frcscouting.tabs.matches.MatchB;
 import me.connor.frcscouting.tabs.matches.items.MatchTeamItem;
 import me.connor.frcscouting.tabs.teams.Team;
 import me.connor.frcscouting.thebluealliance.Links;
@@ -19,9 +19,9 @@ import me.connor.frcscouting.thebluealliance.Links;
 public class TeamsAPI extends AsyncTask<Void, Team, Void>
 {
     private MainActivity activity;
-    private List<Match> matches;
+    private List<MatchB> matches;
 
-    public TeamsAPI(List<Match> matches)
+    public TeamsAPI(List<MatchB> matches)
     {
         this.matches = matches;
         activity = MainActivity.getInstance();
@@ -32,7 +32,7 @@ public class TeamsAPI extends AsyncTask<Void, Team, Void>
     {
         //Load all teams that were populated by the matches...
 
-        for (Match match : matches)
+        for (MatchB match : matches)
         {
             for (MatchTeamItem teamItem : match.getMatchTeams())
             {
@@ -54,6 +54,8 @@ public class TeamsAPI extends AsyncTask<Void, Team, Void>
 
                             team.setTeamName(teamObj.getString("nickname"));
                         }
+
+                        con.disconnect();
                     } catch (Exception e)
                     {
                         e.printStackTrace();

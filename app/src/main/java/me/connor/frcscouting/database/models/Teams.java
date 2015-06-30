@@ -1,15 +1,11 @@
 package me.connor.frcscouting.database.models;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import me.connor.frcscouting.database.Model;
-import me.connor.frcscouting.interfaces.Column;
+import me.connor.frcscouting.database.ModelB;
+import me.connor.frcscouting.interfaces.ColumnB;
 import me.connor.frcscouting.interfaces.IValue;
 import me.connor.frcscouting.tabs.teams.Team;
 
-public class Teams implements Model
+public class Teams implements ModelB
 {
     public static final String TABLE = "teams";
 
@@ -27,7 +23,7 @@ public class Teams implements Model
                 + Columns.TEAM_COMMENTS + " text not null);";
     }
 
-    public enum Columns implements Column<Team>
+    public enum Columns implements ColumnB<Team>
     {
         TEAM_ID(true, "id", new IValue<Team>()
         {

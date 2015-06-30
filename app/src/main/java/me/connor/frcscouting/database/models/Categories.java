@@ -1,11 +1,11 @@
 package me.connor.frcscouting.database.models;
 
-import me.connor.frcscouting.database.Model;
-import me.connor.frcscouting.interfaces.Column;
+import me.connor.frcscouting.database.ModelB;
+import me.connor.frcscouting.interfaces.ColumnB;
 import me.connor.frcscouting.interfaces.IValue;
 import me.connor.frcscouting.tabs.teams.info.tabs.info.items.CategoryItem;
 
-public class Categories implements Model
+public class Categories implements ModelB
 {
     public static final String TABLE = "categories";
 
@@ -23,7 +23,7 @@ public class Categories implements Model
                 + Columns.CATEGORY_SCORE + " integer);";
     }
 
-    public enum Columns implements Column<CategoryItem>
+    public enum Columns implements ColumnB<CategoryItem>
     {
         CATEGORY_ID(true, "id", new IValue<CategoryItem>()
         {

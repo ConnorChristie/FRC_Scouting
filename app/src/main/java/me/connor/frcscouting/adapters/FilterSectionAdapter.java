@@ -3,7 +3,6 @@ package me.connor.frcscouting.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.connor.frcscouting.MainActivity;
-import me.connor.frcscouting.tabs.matches.Match;
+import me.connor.frcscouting.tabs.matches.MatchB;
 import me.connor.frcscouting.tabs.matches.attributes.Side;
 import me.connor.frcscouting.tabs.matches.items.MatchHeaderItem;
 import me.connor.frcscouting.tabs.matches.items.MatchTeamItem;
@@ -30,13 +29,13 @@ public class FilterSectionAdapter extends SectionAdapter implements Filterable
     private View view;
     private Fragment fragment;
 
-    private List<Match> matches;
+    private List<MatchB> matches;
     private final Object mLock = new Object();
 
-    private ArrayList<Match> mOriginalValues;
+    private ArrayList<MatchB> mOriginalValues;
     private ArrayFilter mFilter;
 
-    public FilterSectionAdapter(View view, Fragment fragment, HeaderListView listView, List<Match> matches)
+    public FilterSectionAdapter(View view, Fragment fragment, HeaderListView listView, List<MatchB> matches)
     {
         super(listView);
 
@@ -82,7 +81,7 @@ public class FilterSectionAdapter extends SectionAdapter implements Filterable
     @Override
     public Object getRowItem(int section, int row)
     {
-        Match match = matches.get(section);
+        MatchB match = matches.get(section);
 
         return match.getMatchTeams().get(row);
     }
@@ -152,7 +151,7 @@ public class FilterSectionAdapter extends SectionAdapter implements Filterable
 
             if (prefix == null || prefix.length() == 0)
             {
-                ArrayList<Match> list;
+                ArrayList<MatchB> list;
                 synchronized (mLock)
                 {
                     list = new ArrayList<>(mOriginalValues);
@@ -163,18 +162,18 @@ public class FilterSectionAdapter extends SectionAdapter implements Filterable
             {
                 String prefixString = prefix.toString().toLowerCase();
 
-                ArrayList<Match> values;
+                ArrayList<MatchB> values;
                 synchronized (mLock)
                 {
                     values = new ArrayList<>(mOriginalValues);
                 }
 
                 final int count = values.size();
-                final ArrayList<Match> newValues = new ArrayList<>();
+                final ArrayList<MatchB> newValues = new ArrayList<>();
 
                 for (int i = 0; i < count; i++)
                 {
-                    final Match value = values.get(i);
+                    final MatchB value = values.get(i);
                     final String valueText = value.toString().toLowerCase();
 
                     // First match against the whole, non-splitted value
@@ -195,7 +194,7 @@ public class FilterSectionAdapter extends SectionAdapter implements Filterable
         protected void publishResults(CharSequence constraint, FilterResults results)
         {
             //noinspection unchecked
-            matches = (List<Match>) results.values;
+            matches = (List<MatchB>) results.values;
 
             notifyDataSetChanged();
         }

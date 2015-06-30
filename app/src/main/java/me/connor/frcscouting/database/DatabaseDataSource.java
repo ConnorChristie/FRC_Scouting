@@ -5,10 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
-import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,17 +15,17 @@ import java.util.regex.Pattern;
 import me.connor.frcscouting.MainActivity;
 import me.connor.frcscouting.database.models.Categories;
 import me.connor.frcscouting.database.models.CategoriesList;
-import me.connor.frcscouting.database.models.Matches;
+import me.connor.frcscouting.database.models.Match;
 import me.connor.frcscouting.database.models.Teams;
-import me.connor.frcscouting.interfaces.Column;
+import me.connor.frcscouting.interfaces.ColumnB;
 import me.connor.frcscouting.interfaces.Item;
+import me.connor.frcscouting.tabs.matches.MatchB;
 import me.connor.frcscouting.tabs.matches.attributes.Alliance;
-import me.connor.frcscouting.tabs.matches.Match;
 import me.connor.frcscouting.tabs.matches.attributes.Side;
 import me.connor.frcscouting.tabs.matches.items.MatchHeaderItem;
 import me.connor.frcscouting.tabs.matches.items.MatchTeamItem;
-import me.connor.frcscouting.tabs.teams.info.tabs.info.items.CategoryItem;
 import me.connor.frcscouting.tabs.teams.Team;
+import me.connor.frcscouting.tabs.teams.info.tabs.info.items.CategoryItem;
 import me.connor.frcscouting.tabs.teams.info.tabs.info.items.CategoryListItem;
 
 public class DatabaseDataSource
@@ -52,7 +50,7 @@ public class DatabaseDataSource
     {
         ContentValues values = new ContentValues();
 
-        for (Column column : item.getDataColumns())
+        for (ColumnB column : item.getDataColumns())
         {
             if (!column.isId())
             {
@@ -69,7 +67,7 @@ public class DatabaseDataSource
     {
         ContentValues values = new ContentValues();
 
-        for (Column column : item.getDataColumns())
+        for (ColumnB column : item.getDataColumns())
         {
             if (!column.isId())
             {
@@ -150,35 +148,45 @@ public class DatabaseDataSource
         if (!hasDefenseCat) add(new CategoryListItem("Defense", 0));
     }
 
-    public List<Match> getAllMatches()
+    public List<MatchB> getAllMatches()
     {
-        List<Match> matches = new ArrayList<>();
+        List<MatchB> matches = new ArrayList<>();
         SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
 
-        builder.setTables(Matches.TABLE);
+        builder.setTables(Match.TABLE);
 
-        Cursor cursor = builder.query(db, null, null, null, null, null, Matches.TABLE + "." + Matches.Columns.MATCH_ID + " ASC");
+        Cursor cursor = builder.query(db, null, null, null, null, null, Match.TABLE + "." + Match.Columns.MATCH_ID + " ASC");
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast())
         {
             Map<Integer, MatchTeamItem> matchTeams = new LinkedHashMap<>();
 
-            for (String s : cursor.getString(cursor.getColumnIndex(Matches.Columns.MATCH_RED_ALLIANCE.toString())).split(", "))
+            for (String s : cursor.getString(cursor.getColumnIndex(Match.Columns.MATCH_RED_ALLIANCE.toString())).split(", "))
             {
                 String[] teamSide = s.split(Pattern.quote("|"));
 
                 matchTeams.put(Integer.parseInt(teamSide[0]), new MatchTeamItem(activity.getTeam(Integer.parseInt(teamSide[0])), Alliance.RED, Side.fromText(teamSide[1]))); //Red Alliance
             }
 
-            for (String s : cursor.getString(cursor.getColumnIndex(Matches.Columns.MATCH_BLUE_ALLIANCE.toString())).split(", "))
+            for (String s : cursor.getString(cursor.getColumnIndex(Match.Columns.MATCH_BLUE_ALLIANCE.toString())).split(", "))
             {
                 String[] teamSide = s.split(Pattern.quote("|"));
 
                 matchTeams.put(Integer.parseInt(teamSide[0]), new MatchTeamItem(activity.getTeam(Integer.parseInt(teamSide[0])), Alliance.BLUE, Side.fromText(teamSide[1]))); //Blue Alliance
             }
 
-            matches.add(new Match(cursor.getInt(cursor.getColumnIndex(Matches.Columns.MATCH_ID.toString())), cursor.getString(cursor.getColumnIndex(Matches.Columns.MATCH_KEY.toString())), new MatchHeaderItem(cursor.getString(cursor.getColumnIndex(Matches.Columns.MATCH_TYPE.toString())), cursor.getInt(cursor.getColumnIndex(Matches.Columns.MATCH_NUMBER.toString())), cursor.getString(cursor.getColumnIndex(Matches.Columns.MATCH_TIME.toString()))), matchTeams));
+            matches.add(
+                    new MatchB(
+                            getInt(cursor, Match.Columns.MATCH_ID.toString()),
+                            getString(cursor, Match.Columns.MATCH_KEY.toString()),
+                            getString(cursor, Match.Columns.MATCH_EVENT_KEY.toString()),
+                            new MatchHeaderItem(getString(cursor, Match.Columns.MATCH_TYPE.toString()),
+                                    getInt(cursor, Match.Columns.MATCH_NUMBER.toString()),
+                                    getString(cursor, Match.Columns.MATCH_TIME.toString())),
+                            matchTeams
+                    )
+            );
 
             cursor.moveToNext();
         }
@@ -188,7 +196,7 @@ public class DatabaseDataSource
         return matches;
     }
 
-	public Map<Integer, Team> getAllTeams()
+    public Map<Integer, Team> getAllTeams()
 	{
 		SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
 
@@ -226,4 +234,14 @@ public class DatabaseDataSource
 
 		return teams;
 	}
+
+    private int getInt(Cursor cursor, String str)
+    {
+        return cursor.getInt(cursor.getColumnIndex(str));
+    }
+
+    private String getString(Cursor cursor, String str)
+    {
+        return cursor.getString(cursor.getColumnIndex(str));
+    }
 }

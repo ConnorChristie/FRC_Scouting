@@ -3,7 +3,6 @@ package me.connor.frcscouting.notifications.android;
 import android.app.IntentService;
 import android.app.NotificationManager;
 import android.content.Intent;
-import android.util.Log;
 
 import me.connor.frcscouting.notifications.CommonConstants;
 

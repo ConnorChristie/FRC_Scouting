@@ -20,8 +20,7 @@ import com.daimajia.swipe.SwipeLayout;
 
 import me.connor.frcscouting.R;
 import me.connor.frcscouting.database.models.Categories;
-import me.connor.frcscouting.database.models.Teams;
-import me.connor.frcscouting.interfaces.Column;
+import me.connor.frcscouting.interfaces.ColumnB;
 import me.connor.frcscouting.interfaces.Item;
 import me.connor.frcscouting.listadapter.ListItem;
 import me.connor.frcscouting.tabs.teams.info.tabs.info.TeamInfoFragment;
@@ -226,7 +225,7 @@ public class CategoryItem extends ListItem implements Parcelable, Item
     Database functions.
      */
 
-    public Column[] getDataColumns()
+    public ColumnB[] getDataColumns()
     {
         return Categories.Columns.values();
     }

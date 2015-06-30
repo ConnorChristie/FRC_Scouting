@@ -13,17 +13,12 @@ import com.google.android.gms.iid.InstanceID;
 
 import org.apache.commons.io.IOUtils;
 
-import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-import javax.net.ssl.HttpsURLConnection;
 
 import me.connor.frcscouting.R;
 import me.connor.frcscouting.notifications.CommonConstants;
@@ -109,6 +104,8 @@ public class RegistrationIntentService extends IntentService
         {
             Log.d("", "Server did not accept the reg id");
         }
+
+        con.disconnect();
     }
 
     private void subscribeTopics(String token) throws IOException

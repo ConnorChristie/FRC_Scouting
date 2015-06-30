@@ -15,7 +15,7 @@ import me.connor.frcscouting.MainActivity;
 import me.connor.frcscouting.R;
 import me.connor.frcscouting.notifications.CommonConstants;
 import me.connor.frcscouting.notifications.android.NotificationIntent;
-import me.connor.frcscouting.tabs.matches.Match;
+import me.connor.frcscouting.tabs.matches.MatchB;
 
 public class GcmListenerService extends com.google.android.gms.gcm.GcmListenerService
 {
@@ -28,7 +28,7 @@ public class GcmListenerService extends com.google.android.gms.gcm.GcmListenerSe
         switch (data.getString("msg_type").toLowerCase())
         {
             case "match_score":
-                Match match = MainActivity.getInstance().getPagerAdapter().getMatchesFragment().getMatchFromKey(data.getString("match_key"));
+                MatchB match = MainActivity.getInstance().getPagerAdapter().getMatchesFragment().getMatchFromKey(data.getString("match_key"));
 
                 if (match != null)
                 {
